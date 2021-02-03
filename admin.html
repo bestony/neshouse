@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>
+        NESHouse.com
+    </title>
+    <link href="https://fonts.loli.net/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="css/bulma.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/nes.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="js/alpine.min.js"></script>
+    <script src="js/av-min.js"></script>
+    <script src="js/admin.js"></script>
+</head>
+
+</html>
+
+<body x-data="admin()">
+    <div class="columns is-centered">
+        <div class="column is-half">
+            <!-- header -->
+            <div class="header">
+                <h1 class="title">
+                    NESHouse.com
+                </h1>
+                <h2>
+                    Please share this page carefully. The users of this page have super administrator rights
+                </h2>
+            </div>
+            <!-- header end -->
+            <!-- register -->
+            <div class="container">
+                <h3 class="title">
+                    Create Room
+                </h3>
+                <div class="register-form">
+                    <div class="nes-field">
+                        <label for="name_field">
+                            Room Name
+                        </label>
+                        <input class="nes-input" id="name_field" type="text" x-model="roomName" />
+                    </div>
+                    <div class="nes-field">
+                        <label for="name_field">
+                            Nickname
+                        </label>
+                        <input class="nes-input" id="nickName" type="text" x-model="nickName" />
+                    </div>
+                    <button class="nes-btn is-primary mt-2" type="button" x-bind:disabled="roomId"
+                        x-on:click="createRoom()">
+                        Create Room
+                    </button>
+                </div>
+            </div>
+            <!-- register end -->
+
+            <!-- share -->
+            <div class="container" id="control" x-show="isShowShareArea">
+                <h3 class="title">
+                    Share
+                </h3>
+                <div class="avatar">
+                    <textarea id="textarea_field" x-model="shareText" style="min-height: 7em;"
+                        class="nes-textarea"></textarea>
+
+                    <div class="columns is-desktop">
+                        <div class="column is-two-fifths">
+                            <button class="nes-btn is-primary" type="button" x-on:click="copyLink">
+                                Copy invitation link
+                            </button>
+                        </div>
+                    </div>
+                    <button class="nes-btn is-success" type="button" x-on:click="loginAsAdmin">
+                        Log in to chat room as Administrator
+                    </button>
+                </div>
+            </div>
+            <!-- share end -->
+            <div style="margin-top: 10px;">
+                Sponsored by <a href="https://leancloud.app/">LeanCloud</a>
+            </div>
+        </div>
+    </div>
+
+</body>
