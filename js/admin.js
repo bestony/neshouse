@@ -65,11 +65,11 @@ function admin() {
                     this.shareText = this.generateShareText();
                     // 从新的页面中打开分享页面
                 } catch (e) {
-                    alert("无法创建房间，请联系管理员");
+                    alert("can't create room,send email to bestony@linux.com");
                     console.log(e);
                 }
             } catch (e) {
-                alert("注册失败，请刷新网页重试");
+                alert("can't register account,send email to bestony@linux.com");
                 console.log(e);
             }
         }

@@ -164,7 +164,8 @@
                 <div class="lists">
                     <ul class="nes-list is-circle">
                         <template x-for="item in hosts" :key="item">
-                            <li><span x-text="item.nickname"></span> <button type="button" @click="muteHost(item)" class="nes-btn is-warning" style="margin-right: 20px;">Mute</button>
+                            <li><span x-text="item.nickname"></span> <button type="button" @click="muteHost(item)"
+                                    class="nes-btn is-warning" style="margin-right: 20px;">Mute</button>
                             </li>
                         </template>
                     </ul>
@@ -178,7 +179,9 @@
                 <div class="lists">
                     <ul class="nes-list is-circle">
                         <template x-for="item in applications" :key="item">
-                            <li><span x-text="item.nickname"></span> <button type="button" @click="makePeopleBeHost(item)" class="nes-btn is-success" style="margin-right: 20px;">Allow</button>
+                            <li><span x-text="item.nickname"></span> <button type="button"
+                                    @click="makePeopleBeHost(item)" class="nes-btn is-success"
+                                    style="margin-right: 20px;">Allow</button>
                             </li>
                         </template>
                     </ul>
@@ -187,7 +190,8 @@
             </div>
             <!-- controlpanel end -->
             <div style="margin-top: 10px;">
-                Sponsored by <a href="https://leancloud.app/">LeanCloud</a>
+                Design By <a href="mailto:bestony@linux.com">Bestony</a>, Sponsored by <a
+                    href="https://leancloud.app/">LeanCloud</a>,
             </div>
         </div>
     </div>

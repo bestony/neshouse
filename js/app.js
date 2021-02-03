@@ -107,20 +107,14 @@ function index() {
                     await this._fetchRoomUser(roomId);
                     await this._showUI();
                 } catch (e) {
-                    alert("房间信息有误，请确认后重新加入！")
+                    alert("Room Invite Invalid, Pleask Check")
                 }
-                console.log("管理员静默登陆成功")
             }
 
             if (roomId && !username) {
                 this._showInviteForm();
             }
 
-            // 从url 中解析数据
-            // 尝试登陆用户
-            // 尝试登陆房间
-            // 尝试设定管理员身份
-            // 将参数设置为全局参数
         },
         async deInit() {
 
@@ -137,15 +131,13 @@ function index() {
         async loginWithInviteAndUsername() {
             let username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
             this._showProgress();
-            console.log("开始登陆")
             await this._loginWithUsername(username, this.nickname);
             try {
                 await this._joinRoom(this.routerParam.roomId, username);
-                console.log("抓取房间信息")
                 await this._fetchRoomUser(this.routerParam.roomId);
                 await this._showUI();
             } catch (e) {
-                alert("房间信息有误，请确认后重新加入！")
+                alert("Room Information is invalid, Please Check")
             }
 
         },
@@ -161,14 +153,14 @@ function index() {
         copyLink() {
 
             if (!this.routerParam.roomId || !this.userId) {
-                alert("房间使用错误，请重新生成");
+                alert("Can't generate for this room,send email to bestony@linux.com");
                 return;
             }
             navigator.permissions.query({ name: "clipboard-write" }).then(result => {
                 if (result.state == "granted" || result.state == "prompt") {
                     navigator.clipboard.writeText(this._generateShareText())
                 } else {
-                    alert("浏览器禁止复制，请自行复制上方输入框内的分享信息")
+                    alert("The browser prohibits copying, please copy the sharing information in the input box above by yourself")
                     console.log(result.state)
                 }
             });
@@ -404,7 +396,7 @@ function index() {
                             rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
                             rtc.localAudioTrack.setEnabled(true);
                             await rtc.client.publish([rtc.localAudioTrack]);
-                            alert("你已经成为主播，可以开始发言。");
+                            alert("You have become an host and can start speaking.");
                         }
                         // 调整角色位置
                         this.hosts = [...this.hosts, {
@@ -453,7 +445,7 @@ function index() {
                         this.isShowChatRoom = false;
                         rtc.client.leave().then(() => {
                             liveQuery.unsubscribe();
-                            alert("你已经被踢出房间");
+                            alert("You have left the room");
                         })
 
                     }
@@ -467,7 +459,7 @@ function index() {
             const user = AV.Object.createWithoutData('RoomUser', item.id);
             user.set('forceMute', true);
             await user.save();
-            alert("禁言成功");
+            alert("Banned successfully");
         },
 
         async makeApplication() {
@@ -475,7 +467,7 @@ function index() {
             user.set('application', true);
             await user.save();
             this.hasApplication = true;
-            alert("申请成功，等待审核");
+            alert("Application successful, waiting for review");
         },
         async makePeopleBeHost(item) {
             const user = AV.Object.createWithoutData('RoomUser', item.id);
@@ -484,7 +476,7 @@ function index() {
             this.applications = this.applications.filter(obj => {
                 return item.id != obj.id
             })
-            alert("申请通过");
+            alert("Application approved");
         }
 
 
