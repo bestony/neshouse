@@ -9,7 +9,9 @@ AV.init({
 
 function admin() {
     return {
+        // Control State
         isShowShareArea: false,
+        // Info State
         roomName: null,
         roomId: null,
         userId: null,
@@ -41,29 +43,32 @@ function admin() {
         },
 
         async createRoom() {
-            // 注册用户, 随机5位  + 随机5位
+            // Generate Username 
             let username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
             try {
+                // Sign up a user 
                 const user = new AV.User();
                 user.setUsername(username);
                 user.setPassword(username);
                 user.set('nickname', this.nickName);
                 let userObj = await user.signUp()
+                // record user state
                 this.userId = userObj.id;
                 this.userName = username;
                 try {
-                    // 创建房间，并指定当前用户为管理员
+                    // Create Room and make currentUser as Admin
                     const Room = AV.Object.extend('Room');
                     const room = new Room();
                     room.set("title", this.roomName);
                     room.set("adminUser", userObj.id);
                     let roomObj = await room.save();
+
+                    // record Room State
                     this.roomId = roomObj.id;
                     console.log("roomID", roomObj.id);
-                    // 展示分享区域
+                    // Show Share Area
                     this.isShowShareArea = true;
                     this.shareText = this.generateShareText();
-                    // 从新的页面中打开分享页面
                 } catch (e) {
                     alert("can't create room,send email to bestony@linux.com");
                     console.log(e);

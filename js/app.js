@@ -13,7 +13,6 @@ AV.init({
 });
 const Room = AV.Object.extend('Room');
 const RoomUser = AV.Object.extend("RoomUser");
-const Host = AV.Object.extend('Host');
 
 // Agora Init
 var rtc = {
@@ -100,6 +99,7 @@ function index() {
 
             const { roomId, username } = this._getParam();
             this.routerParam = { roomId, username }
+
             if (roomId && username) {
                 this._showProgress()
                 try {
@@ -166,8 +166,36 @@ function index() {
             });
 
         },
+        showForm() {
+            this.isShowButton = false;
+            this.isShowChatRoom = true;
+        },
+        async muteHost(item) {
+            const user = AV.Object.createWithoutData('RoomUser', item.id);
+            user.set('forceMute', true);
+            await user.save();
+            alert("Banned successfully");
+        },
 
-        // 生成分享文字
+        async makeApplication() {
+            const user = AV.Object.createWithoutData('RoomUser', this.loginRecordId);
+            user.set('application', true);
+            await user.save();
+            this.hasApplication = true;
+            alert("Application successful, waiting for review");
+        },
+        async makePeopleBeHost(item) {
+            const user = AV.Object.createWithoutData('RoomUser', item.id);
+            user.set("role", "host");
+            await user.save();
+            this.applications = this.applications.filter(obj => {
+                return item.id != obj.id
+            })
+            alert("Application approved");
+        }
+
+
+        // generate share text
         _generateShareText() {
             text = "I found a room, copy the link to the browser to open, you can chat with me! " + BASEURL + "?invite=" + this.routerParam.roomId;
             this.shareText = text;
@@ -214,11 +242,6 @@ function index() {
             }
             this.isShowButton = true;
         },
-        showForm() {
-            this.isShowButton = false;
-            this.isShowChatRoom = true;
-        },
-
         // join room
         async _joinRoom(roomId, username) {
             // ensure can get user;
@@ -233,10 +256,11 @@ function index() {
             let roomUser = await roomUserQuery.find();
             AV.Object.destroyAll(roomUser);
 
-
             // 如果用户是管理员，则设定管理员标志
             if (user.id === room.get("adminUser")) {
                 this.isAdmin = true;
+
+                // create room user record
                 const host = new RoomUser();
                 host.set("roomId", room.id);
                 host.set("username", username);
@@ -244,7 +268,10 @@ function index() {
                 host.set("userId", user.id);
                 host.set("role", 'admin');
                 let res = await host.save();
+
+                // loginRecordId
                 this.loginRecordId = res.id;
+
                 let rtc = await this._joinChat();
                 rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
                 rtc.localAudioTrack.setEnabled(true);
@@ -312,15 +339,16 @@ function index() {
 
             // agora.io
             AgoraRTC.setLogLevel(4)
+
             rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 
             await rtc.client.join(options.appId, this.routerParam.roomId, null, this.userId);
-            // 持续监听
+
+            // user-published
             rtc.client.on("user-published", async (user, mediaType) => {
                 await rtc.client.subscribe(user, mediaType);
                 if (mediaType === "audio") {
                     const remoteAudioTrack = user.audioTrack;
-                    // 播放音频因为不会有画面，不需要提供 DOM 元素的信息。
                     remoteAudioTrack.play();
                 }
             });
@@ -345,6 +373,7 @@ function index() {
 
                 });
             })
+
             // leancloud.app
             const roomUserQuery = new AV.Query("RoomUser");
             roomUserQuery.equalTo("roomId", this.routerParam.roomId);
@@ -374,31 +403,36 @@ function index() {
                 });
                 // some user be host
                 liveQuery.on('update', async (object, updatedKeys) => {
-                    if (updatedKeys[0] == 'forceMute' && object.get("forceMute") && object.id == this.loginRecordId) {
+                    // is user forceMute
+                    if (updatedKeys[0] == 'forceMute'
+                        && object.get("forceMute")
+                        && object.id == this.loginRecordId) {
                         rtc.localAudioTrack.setEnabled(false);
-                        alert("您已经被禁言")
+                        alert("Your has forbidden!")
                     }
-                    if (this.isAdmin) {
-                        if (object.get("application") && object.get("role") == "guest") {
-                            this.applications = [...this.applications, {
-                                username: object.get("username"),
-                                nickname: object.get("nickname"),
-                                userId: object.get("userId"),
-                                id: object.id,
-                                application: true,
-                            }]
-                        }
+
+                    if (this.isAdmin &&
+                        object.get("application") &&
+                        object.get("role") == "guest") {
+                        this.applications = [...this.applications, {
+                            username: object.get("username"),
+                            nickname: object.get("nickname"),
+                            userId: object.get("userId"),
+                            id: object.id,
+                            application: true,
+                        }]
                     }
-                    // 如果有用户变为 host or admin，加入到 host 列表，并移除之前的列表
-                    if (object.get("role") == "host") {
-                        // 如果当前用户是 host， 则开启声音
+
+                    // if someone be host
+                    if (object.get("role") == "host" && updatedKeys[0] == 'role') {
+                        // if current user is changed user ,enable local track
                         if (object.id == this.loginRecordId) {
                             rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
                             rtc.localAudioTrack.setEnabled(true);
                             await rtc.client.publish([rtc.localAudioTrack]);
                             alert("You have become an host and can start speaking.");
                         }
-                        // 调整角色位置
+                        // change icon location
                         this.hosts = [...this.hosts, {
                             username: object.get("username"),
                             nickname: object.get("nickname"),
@@ -432,6 +466,7 @@ function index() {
 
                         this.guests = newGuest
                     }
+
                     if (role == "admin" || role == "host") {
                         newHost = this.hosts.filter(item => {
                             if (item.userId == userId) {
@@ -441,13 +476,13 @@ function index() {
                         })
                         this.hosts = newHost
                     }
+
                     if (guest.id == this.loginRecordId) {
                         this.isShowChatRoom = false;
                         rtc.client.leave().then(() => {
                             liveQuery.unsubscribe();
                             alert("You have left the room");
                         })
-
                     }
 
                 });
@@ -455,30 +490,6 @@ function index() {
             this.rtcClient = rtc;
             return rtc;
         },
-        async muteHost(item) {
-            const user = AV.Object.createWithoutData('RoomUser', item.id);
-            user.set('forceMute', true);
-            await user.save();
-            alert("Banned successfully");
-        },
-
-        async makeApplication() {
-            const user = AV.Object.createWithoutData('RoomUser', this.loginRecordId);
-            user.set('application', true);
-            await user.save();
-            this.hasApplication = true;
-            alert("Application successful, waiting for review");
-        },
-        async makePeopleBeHost(item) {
-            const user = AV.Object.createWithoutData('RoomUser', item.id);
-            user.set("role", "host");
-            await user.save();
-            this.applications = this.applications.filter(obj => {
-                return item.id != obj.id
-            })
-            alert("Application approved");
-        }
-
 
     }
 }
