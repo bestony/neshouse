@@ -75,7 +75,7 @@ const BASEURL = "" // 最终网页所在的路径，生成的分享链接会基�
 
 如果你是用户，你可以通过上方的 [issue](https://github.com/bestony/neshouse/issues) 或 discussion 参与讨论，提出你的问题
 
-如果你是开发者，你可以直接通过 [Pull Request](https://github.com/bestony/neshouse/pulls) 提交你的修改。需要注意的是，你的修改将会以 GPLv3 授权给其他开发者。
+如果你是开发者，你可以直接通过 [Pull Request](https://github.com/bestony/neshouse/pulls) 提交你的修改。需要注意的是，你的修改将会以 AGPLv3 授权给其他开发者。
 
 ## 赞助商
 
