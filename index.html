@@ -170,8 +170,9 @@
                 <div class="lists">
                     <ul class="nes-list is-circle">
                         <template x-for="item in hosts" :key="item">
-                            <li><span x-text="item.nickname"></span> <button type="button" @click="muteHost(item)"
-                                    class="nes-btn is-warning" style="margin-right: 20px;">Mute</button>
+                            <li x-show="userId!=item.userId"><span x-text="item.nickname"></span> <button type="button"
+                                    @click="muteHost(item)" class="nes-btn is-warning"
+                                    style="margin-right: 20px;">Mute</button>
                             </li>
                         </template>
                     </ul>
