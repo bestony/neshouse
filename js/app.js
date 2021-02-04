@@ -192,7 +192,7 @@ function index() {
                 return item.id != obj.id
             })
             alert("Application approved");
-        }
+        },
 
 
         // generate share text
