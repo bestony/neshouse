@@ -172,9 +172,9 @@ function index() {
         },
         async muteHost(item) {
             const user = AV.Object.createWithoutData('RoomUser', item.id);
-            user.set('forceMute', true);
+            user.set('forceMute', !item.forceMute);
             await user.save();
-            alert("Banned successfully");
+            alert("OK");
         },
 
         async makeApplication() {
@@ -327,6 +327,7 @@ function index() {
                         username: item.get("username"),
                         nickname: item.get("nickname"),
                         userId: item.get("userId"),
+                        id: item.id,
                         status: false,
                     })
                 }
@@ -411,6 +412,21 @@ function index() {
                         alert("Your has forbidden!")
                     }
 
+                    if (updatedKeys[0] == 'forceMute'
+                        && !object.get("forceMute")
+                        && object.id == this.loginRecordId) {
+                        rtc.localAudioTrack.setEnabled(true);
+                        alert("You can talk now!")
+                    }
+
+                    if (this.isAdmin && updatedKeys[0] == 'forceMute') {
+                        this.hosts.forEach(item => {
+                            if (item.forceMute != object.get("forceMute") && item.id == object.id) {
+                                item.forceMute = !item.forceMute;
+                            }
+                        })
+                    }
+
                     if (this.isAdmin &&
                         object.get("application") &&
                         object.get("role") == "guest") {
@@ -438,6 +454,7 @@ function index() {
                             nickname: object.get("nickname"),
                             userId: object.get("userId"),
                             id: object.id,
+                            forceMute: object.get("forceMute"),
                             status: false
                         }]
                         newGuest = this.guests.filter(item => {
