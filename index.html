@@ -127,7 +127,8 @@
                             </button>
                         </div>
                         <div class="column" x-show="isAdmin || isHost">
-                            <button class="nes-btn" type="button" @click="muteMySelf">
+                            <button class="nes-btn" x-text="rtcEnable?'Mute':'Unmute'" type="button"
+                                @click="muteMySelf">
                                 Mute
                             </button>
                         </div>
