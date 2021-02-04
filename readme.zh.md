@@ -37,7 +37,7 @@ NesHouse 是一个基于 Agora、LeanCloud 服务，使用 Alpine.js 、Bulma Cs
 ## 依赖服务
 
 1. [LeanCloud 国际版](https://console.leancloud.app/)
-2. [Agora.io 声网](https://www.agora.io/cn/)
+2. [Agora.io 声网](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB)
 3. （非必需）[Vercel](https://vercel.com/) 
 
 ## 如何使用
@@ -45,7 +45,7 @@ NesHouse 是一个基于 Agora、LeanCloud 服务，使用 Alpine.js 、Bulma Cs
 ### 使用流程
 
 1. 注册一个 [LeanCloud 国际账户](https://console.leancloud.app/)，并创建一个项目，用于后续的项目配置
-2. 注册一个 [Agora 声网账号](https://www.agora.io/cn/)，并创建一个项目，获取 AppID。
+2. 注册一个 [Agora 声网账号](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB)，并创建一个项目，获取 AppID。
 3. 从 LeanCloud 的**应用后台** - **你使用的应用** - **设置** - **应用 Keys** 中找到 ****AppID** 和 **AppKey**，将其记录下来，以备后用。
 4. 从 LeanCloud 的**应用后台** - **你使用的应用** - **存储** - **服务设置** 中启用 **Live Query**
 5. 将上面记录的声网的应用 AppID 和 LeanCloud 的 AppID 和 APPkey 填写到 `js/app.js` 和 `js/admin.js` 顶部的配置中。
@@ -79,6 +79,7 @@ const BASEURL = "" // 最终网页所在的路径，生成的分享链接会基�
 ## 赞助商
 
 [<img src="https://postimg.aliavv.com/mbp2021/5xzk6.png" width="300px">](https://leancloud.app/)
+[<img src="https://postimg.aliavv.com/mbp2021/1wzcr.png" width="300px">](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB)
 
 ## LICENSE 
 [AGPLv3](LICENSE)

@@ -36,7 +36,7 @@ NesHouse is a front-end project built on Agora, LeanCloud service, using Alpine.
 ## Dependency Services
 
 1. [LeanCloud Gloabl](https://console.leancloud.app/)
-2. [Agora.io](https://www.agora.io/cn/)
+2. [Agora.io](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB)
 3. （non-essential）[Vercel](https://vercel.com/) 
 
 ## How to use
@@ -44,7 +44,7 @@ NesHouse is a front-end project built on Agora, LeanCloud service, using Alpine.
 ### Flow of use
 
 1. Register a [LeanCloud International Account](https://console.leancloud.app/) and create a project for subsequent project configuration
-2. Register an [Agora Sound Network account](https://www.agora.io/cn/) and create a project to get the AppID.
+2. Register an [Agora Sound Network account](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB) and create a project to get the AppID.
 3. Find **AppID** and **AppKey** from LeanCloud's **App Backend** - **Apps you use** - **Settings** - **App Keys**, and record them for later use.
 4. Enable **Live Query** from LeanCloud's **App Backend** - **Apps You Use** - **Storage** - **Service Settings**
 5. Fill in the application AppID of SoundCloud recorded above and the AppID and APPkey of LeanCloud into the configuration at the top of `js/app.js` and `js/admin.js`.
@@ -78,6 +78,7 @@ If you are a developer, you can submit your changes directly via [Pull Request](
 ## Sponsors
 
 [<img src="https://postimg.aliavv.com/mbp2021/5xzk6.png" width="300px">](https://leancloud.app/)
+[<img src="https://postimg.aliavv.com/mbp2021/1wzcr.png" width="300px">](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB)
 
 ## LICENSE 
 [AGPLv3](LICENSE)
