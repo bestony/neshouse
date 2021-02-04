@@ -194,6 +194,9 @@ function index() {
             alert("Application approved");
         },
 
+        _isInWeChat() {
+            return navigator.userAgent.indexOf("MicroMessenger") != -1
+        },
 
         // generate share text
         _generateShareText() {
@@ -240,7 +243,11 @@ function index() {
             if (this.isAdmin) {
                 this.isShowControl = true;
             }
-            this.isShowButton = true;
+            if (this._isInWeChat()) {
+                this.isShowButton = true;
+            } else {
+                this.isShowChatRoom = true;
+            }
         },
         // join room
         async _joinRoom(roomId, username) {
