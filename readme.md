@@ -74,7 +74,7 @@ const BASEURL = "" // The path where the final page is located, the generated sh
 
 If you are a user, you can participate in the discussion and ask your questions via [issue](https://github.com/bestony/neshouse/issues) or discussion above
 
-If you are a developer, you can submit your changes directly via [Pull Request](https://github.com/bestony/neshouse/pulls). Note that your changes will be licensed to other developers under the GPLv3.
+If you are a developer, you can submit your changes directly via [Pull Request](https://github.com/bestony/neshouse/pulls). Note that your changes will be licensed to other developers under the AGPLv3.
 
 ## Sponsors
 
