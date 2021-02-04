@@ -446,6 +446,7 @@ function index() {
                             rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
                             rtc.localAudioTrack.setEnabled(true);
                             await rtc.client.publish([rtc.localAudioTrack]);
+                            this.isHost = true;
                             alert("You have become an host and can start speaking.");
                         }
                         // change icon location
