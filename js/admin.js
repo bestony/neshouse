@@ -44,14 +44,24 @@ function admin() {
 
         async createRoom() {
             // Generate Username 
-            let username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
+            let username = localStorage.getItem("username");
+            // Sign up a user 
+            const user = new AV.User();
+            let userObj = null;
             try {
-                // Sign up a user 
-                const user = new AV.User();
-                user.setUsername(username);
-                user.setPassword(username);
-                user.set('nickname', this.nickName);
-                let userObj = await user.signUp()
+                if (!username) {
+                    username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
+                    localStorage.setItem("username", username);
+                    user.setUsername(username);
+                    user.setPassword(username);
+                    user.set('nickname', this.nickName);
+                    userObj = await user.signUp()
+                } else {
+                    user.setUsername(username);
+                    user.setPassword(username);
+                    user.set('nickname', this.nickName);
+                    userObj = await AV.User.logIn(username, username);
+                }
                 // record user state
                 this.userId = userObj.id;
                 this.userName = username;
@@ -78,6 +88,5 @@ function admin() {
                 console.log(e);
             }
         }
-
     }
 }
