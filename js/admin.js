@@ -35,7 +35,7 @@ function admin() {
                 if (result.state == "granted" || result.state == "prompt") {
                     navigator.clipboard.writeText(this.generateShareText())
                 } else {
-                    alert("Your browser forbids text copying. Please copy the text in the box.")
+                    alert("Your browser forbids text copying. Please select and copy the text in the box yourself.")
                     console.log(result.state)
                 }
             });
