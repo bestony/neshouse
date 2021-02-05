@@ -46,7 +46,6 @@ window.onbeforeunload = function (event) {
     document.querySelectorAll('[x-data]').forEach(async (el) => {
         await el.__x.getUnobservedData().deInit();
     });
-
 }
 
 window.unload = function (event) {
@@ -54,7 +53,6 @@ window.unload = function (event) {
     document.querySelectorAll('[x-data]').forEach(async (el) => {
         await el.__x.getUnobservedData().deInit();
     });
-
 }
 
 function index() {
@@ -123,10 +121,11 @@ function index() {
 
         },
         async deInit() {
-
-            const loginRecord = AV.Object.createWithoutData('RoomUser', this.loginRecordId);
-            await loginRecord.destroy();
-
+            // 保留有权限的用户数据
+            if (this.isAdmin || this.isHost) {
+                const loginRecord = AV.Object.createWithoutData('RoomUser', this.loginRecordId);
+                await loginRecord.destroy();
+            }
             // 关闭声网通道
             await this.rtcClient.leave();
             // 关闭网页
