@@ -131,6 +131,10 @@ function index() {
         async loginWithInviteAndUsername() {
             let username = localStorage.getItem("username");
             if (!username) {
+                if (!this.nickname) {
+                    alert("Nickname cannot be empty")
+                    return
+                }
                 username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
                 localStorage.setItem("username", username);
             }

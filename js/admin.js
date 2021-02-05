@@ -50,6 +50,10 @@ function admin() {
             let userObj = null;
             try {
                 if (!username) {
+                    if (!this.nickName) {
+                        alert("Nickname cannot be empty")
+                        return
+                    }
                     username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
                     localStorage.setItem("username", username);
                     user.setUsername(username);
@@ -67,6 +71,10 @@ function admin() {
                 this.userName = username;
                 try {
                     // Create Room and make currentUser as Admin
+                    if (!this.roomName) {
+                        alert("Room name cannot be empty")
+                        return
+                    }
                     const Room = AV.Object.extend('Room');
                     const room = new Room();
                     room.set("title", this.roomName);
