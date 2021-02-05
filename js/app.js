@@ -1,9 +1,3 @@
-const AVAPPID = ""
-const AVAPPKEY = ""
-const BASEURL = "https://neshouse.com/"
-const DEFAULT_TEXT = "Please contact <a href='mailto:bestony@linux.com'>bestony@linux.com</a> to learn more."
-const AGORAAPPID = ""
-
 /**
  * LeanCloud Init
  */
@@ -524,6 +518,14 @@ function index() {
                             id: object.id,
                             application: true,
                         }]
+                    }
+
+                    if (this.isAdmin &&
+                        object.get("application") &&
+                        object.get("role") == "host") {
+                        this.applications = this.applications.filter(item => {
+                            return item.id != object.id;
+                        })
                     }
 
                     // if someone be host

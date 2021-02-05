@@ -1,7 +1,3 @@
-const AVAPPID = ""
-const AVAPPKEY = ""
-const BASEURL = "https://neshouse.com/"
-
 AV.init({
     appId: AVAPPID,
     appKey: AVAPPKEY,
