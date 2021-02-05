@@ -1,7 +1,7 @@
 const AVAPPID = ""
 const AVAPPKEY = ""
 const BASEURL = "https://neshouse.com/"
-const DEFAULT_TEXT = "Please contact <a href='mailto:bestony@linux.com'>bestony@linux.com</a> to Learn more"
+const DEFAULT_TEXT = "Please contact <a href='mailto:bestony@linux.com'>bestony@linux.com</a> to learn more."
 const AGORAAPPID = ""
 
 /**
@@ -132,7 +132,7 @@ function index() {
             let username = localStorage.getItem("username");
             if (!username) {
                 if (!this.nickname) {
-                    alert("Nickname cannot be empty")
+                    alert("You have to choose a nickname. :)")
                     return
                 }
                 username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
@@ -145,7 +145,7 @@ function index() {
                 await this._fetchRoomUser(this.routerParam.roomId);
                 await this._showUI();
             } catch (e) {
-                alert("Room Information is invalid, Please Check")
+                alert("We cannot find the room, please check if the room link is valid.")
             }
 
         },
@@ -168,7 +168,7 @@ function index() {
                 if (result.state == "granted" || result.state == "prompt") {
                     navigator.clipboard.writeText(this._generateShareText())
                 } else {
-                    alert("The browser prohibits copying, please copy the sharing information in the input box above by yourself")
+                    alert("Your browser forbids text copying. Please select and copy the text in the box yourself.")
                     console.log(result.state)
                 }
             });
@@ -190,7 +190,7 @@ function index() {
             user.set('application', true);
             await user.save();
             this.hasApplication = true;
-            alert("Application successful, waiting for review");
+            alert("Request sent, please wait for the host's approval.");
         },
         async makePeopleBeHost(item) {
             const user = AV.Object.createWithoutData('RoomUser', item.id);
@@ -199,7 +199,7 @@ function index() {
             this.applications = this.applications.filter(obj => {
                 return item.id != obj.id
             })
-            alert("Application approved");
+            alert("Request approved");
         },
         async adminSwitch(item) {
             const user = AV.Object.createWithoutData('RoomUser', item.id);
@@ -235,14 +235,14 @@ function index() {
 
         // generate share text
         _generateShareText() {
-            text = "I found a room, copy the link to the browser to open, you can chat with me! " + BASEURL + "?invite=" + this.routerParam.roomId;
+            text = "I've found a chat room on NESHouse. Copy & open the following link in your browser and let's chat!  " + BASEURL + "?invite=" + this.routerParam.roomId;
             this.shareText = text;
             return text
         },
 
         _showProgress() {
             this.showProgress = true;
-            this.subtitle = "Joining the room, please wait patiently";
+            this.subtitle = "Joining the room, please wait a moment. :D";
             var t = setInterval(() => {
                 if (this.progress >= 98) {
                     clearInterval(t);
@@ -487,14 +487,14 @@ function index() {
                         && object.get("forceMute")
                         && object.id == this.loginRecordId) {
                         rtc.localAudioTrack.setEnabled(false);
-                        alert("Your has forbidden!")
+                        alert("You've been muted!")
                     }
 
                     if (updatedKeys[0] == 'forceMute'
                         && !object.get("forceMute")
                         && object.id == this.loginRecordId) {
                         rtc.localAudioTrack.setEnabled(true);
-                        alert("You can talk now!")
+                        alert("You can speak now. :)")
                     }
 
                     if (this.isAdmin && updatedKeys[0] == 'forceMute') {
@@ -525,7 +525,7 @@ function index() {
                             rtc.localAudioTrack.setEnabled(true);
                             await rtc.client.publish([rtc.localAudioTrack]);
                             this.isHost = true;
-                            alert("You have become an host and can start speaking.");
+                            alert("You've become a speaker and let's talk!");
                         }
                         newHost = this.hosts.filter(item => {
                             return item.id != object.id;
@@ -594,7 +594,7 @@ function index() {
                         this.isShowChatRoom = false;
                         rtc.client.leave().then(() => {
                             liveQuery.unsubscribe();
-                            alert("You have left the room");
+                            alert("You have left the room.");
                         })
                     }
 
