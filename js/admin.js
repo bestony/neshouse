@@ -101,7 +101,7 @@ function admin() {
                     this.isShowShareArea = true;
                     this.shareText = this.generateShareText();
                 } catch (e) {
-                    alert("Chat room cannot be created, please shoot an email to bestony@linux.com.");
+                    alert("Failed to create a chat room, please shoot an email to bestony@linux.com.");
                     console.log(e);
                 }
             } catch (e) {
