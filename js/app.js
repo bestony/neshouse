@@ -167,7 +167,7 @@ function index() {
         copyLink() {
 
             if (!this.routerParam.roomId || !this.userId) {
-                alert("Can't generate for this room,send email to bestony@linux.com");
+                alert("Can't generate the link for this room, please shoot an email to bestony@linux.com.");
                 return;
             }
             navigator.permissions.query({ name: "clipboard-write" }).then(result => {
@@ -209,7 +209,7 @@ function index() {
             this.applications = this.applications.filter(obj => {
                 return item.id != obj.id
             })
-            alert("Request approved");
+            alert("Request approved.");
         },
         async adminSwitch(item) {
             const user = AV.Object.createWithoutData('RoomUser', item.id);
@@ -245,7 +245,7 @@ function index() {
 
         // generate share text
         _generateShareText() {
-            text = "I've found a chat room on NESHouse. Copy & open the following link in your browser and let's chat!  " + BASEURL + "?invite=" + this.routerParam.roomId;
+            text = "I've found a chat room on NESHouse. Copy & open the following link in your browser and let's chat! " + BASEURL + "?invite=" + this.routerParam.roomId;
             this.shareText = text;
             return text
         },
