@@ -44,18 +44,18 @@
             <!-- register -->
             <div class="container" x-show="isShowRegsiter">
                 <h3 class="title">
-                    Join NESHouse Room
+                    Join an NESHouse Chat Room
                 </h3>
                 <div class="register-form">
                     <div x-show="!usernameExist" class="nes-field">
                         <label for="name_field">
-                            Please input your nickname
+                            Please enter your nickname
                         </label>
                         <input class="nes-input" id="name_field" x-model="nickname" type="text">
                         </input>
                     </div>
                     <button class="nes-btn is-primary mt-2" type="button" @click="loginWithInviteAndUsername()">
-                        Join Room
+                        Join
                     </button>
                     <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
                         Change User
@@ -66,9 +66,9 @@
 
             <!-- chatroom -->
             <div class="nes-container with-title is-centered" x-show="!isShowChatRoom && isShowButton">
-                <p class="title">User agreement</p>
-                <p>Allow us to play with your playback device</p>
-                <button type="button" class="nes-btn is-success" @click="showForm">YES</button>
+                <p class="title">User Agreement</p>
+                <p>Please allow the app to use your playback device.</p>
+                <button type="button" class="nes-btn is-success" @click="showForm">OK</button>
 
             </div>
             <div class="container" id="host" x-show="isShowChatRoom">
@@ -92,7 +92,9 @@
                 </div>
             </div>
             <div class="container" id="user" x-show="isShowChatRoom">
-                <h3 class="title">Audience</h3>
+                <h3 class="title">
+                    Audience
+                </h3>
                 <div class="avatar">
                     <div class="columns is-desktop is-multiline">
                         <template x-for="item in guests" :key="item">
@@ -124,7 +126,7 @@
                         </div>
                         <div class="column" x-show="!isAdmin">
                             <button class="nes-btn is-error" @click="deInit" type="button">
-                                Leave Room Quietly
+                                Leave Room
                             </button>
                         </div>
                         <div class="column" x-show="isAdmin || isHost">
@@ -135,7 +137,7 @@
                         </div>
                         <div class="column" x-show="!isAdmin && !isHost && !hasApplication">
                             <button class="nes-btn" type="button" @click="makeApplication">
-                                Hands Up
+                                Request to Speak
                             </button>
                         </div>
                     </div>
@@ -155,7 +157,7 @@
 
                         <div class="column is-two-fifths">
                             <button class="nes-btn is-primary" type="button" @click="copyLink">
-                                Copy Share Link
+                                Copy Link & Share
                             </button>
                         </div>
                     </div>
@@ -166,7 +168,7 @@
             <!-- controlpanel -->
             <div class="container" id="host-list" x-show="isShowChatRoom && isAdmin">
                 <h3 class="title">
-                    Host List
+                    Speaker List
                 </h3>
                 <div class="lists">
                     <ul class="nes-list is-circle">
@@ -185,7 +187,7 @@
             </div>
             <div class="container" id="application-list" x-show="isShowChatRoom && isAdmin">
                 <h3 class="title">
-                    Application List
+                     Speakers' Waiting Bench
                 </h3>
                 <div class="lists">
                     <ul class="nes-list is-circle">
@@ -202,9 +204,13 @@
             <!-- controlpanel end -->
 
             <div style="margin-top: 10px;">
-                Design By <a href="mailto:bestony@linux.com">Bestony</a>, Sponsored by <a
-                    href="https://leancloud.app/">LeanCloud</a>,<a
-                    href="https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB">Agora</a>
+                <p>Designed & developed by <a href=" ">Bestony</a >, co-developed by <a
+                    href="https://leancloud.app/">LeanCloud</a>,<a	                        href="https://blog.lvcshu.com">johnpoint</a >
+                    href="https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB">Agora</a>	                </p >
+                <p>Sponsored by: <a href="https://leancloud.app/">LeanCloud</a >, <a
+                        href="https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB">Agora</a > & <a
+                        href="https://www.ipip.net/">IPIP.net</a ></p >
+                <p>Media partner: <a href="http://dao.fm/">津津乐道播客</a ></p >
             </div>
         </div>
     </div>
