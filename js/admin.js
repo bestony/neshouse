@@ -18,6 +18,15 @@ function admin() {
         shareText: "",
         nickName: null,
         userName: null,
+        usernameExist: false,
+        async init() {
+            username = window.localStorage.getItem("username");
+            if (username) {
+                this.usernameExist = true;
+            } else {
+                this.usernameExist = false;
+            }
+        },
         loginAsAdmin() {
             var win = window.open(BASEURL + "?invite=" + this.roomId + "&user=" + this.userName, '_blank');
             win.focus();
@@ -41,10 +50,13 @@ function admin() {
             });
 
         },
-
+        createNewUser() {
+            window.localStorage.removeItem("username");
+            this.usernameExist = false;
+        },
         async createRoom() {
             // Generate Username 
-            let username = localStorage.getItem("username");
+            let username = window.localStorage.getItem("username");
             // Sign up a user 
             const user = new AV.User();
             let userObj = null;
@@ -61,10 +73,11 @@ function admin() {
                     user.set('nickname', this.nickName);
                     userObj = await user.signUp()
                 } else {
-                    user.setUsername(username);
-                    user.setPassword(username);
-                    user.set('nickname', this.nickName);
                     userObj = await AV.User.logIn(username, username);
+                    if (this.nickName) {
+                        user.set('nickname', this.nickName);
+                        user.save();
+                    }
                 }
                 // record user state
                 this.userId = userObj.id;

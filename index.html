@@ -47,7 +47,7 @@
                     Join an NESHouse Chat Room
                 </h3>
                 <div class="register-form">
-                    <div class="nes-field">
+                    <div x-show="!usernameExist" class="nes-field">
                         <label for="name_field">
                             Please enter your nickname
                         </label>
@@ -56,6 +56,9 @@
                     </div>
                     <button class="nes-btn is-primary mt-2" type="button" @click="loginWithInviteAndUsername()">
                         Join
+                    </button>
+                    <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
+                        Change User
                     </button>
                 </div>
             </div>

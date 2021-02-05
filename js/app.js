@@ -71,6 +71,7 @@ function index() {
         // registerForm
         nickname: null,
         userId: null,
+        usernameExist: false,
 
         // chatRoom
         hosts: [],
@@ -82,7 +83,6 @@ function index() {
         loginRecordId: null,
         applications: [],
         isHost: false,
-
 
         // control
         isShowChatRoom: false,
@@ -112,6 +112,12 @@ function index() {
             }
 
             if (roomId && !username) {
+                usrname = window.localStorage.getItem("username");
+                if (usrname) {
+                    this.usernameExist = true;
+                } else {
+                    this.usernameExist = false;
+                }
                 this._showInviteForm();
             }
 
@@ -129,7 +135,7 @@ function index() {
 
         // loginWithInviteAndUsername
         async loginWithInviteAndUsername() {
-            let username = localStorage.getItem("username");
+            let username = window.localStorage.getItem("username");
             if (!username) {
                 if (!this.nickname) {
                     alert("You have to choose a nickname. :)")
@@ -177,6 +183,10 @@ function index() {
         showForm() {
             this.isShowButton = false;
             this.isShowChatRoom = true;
+        },
+        createNewUser() {
+            window.localStorage.removeItem("username");
+            this.usernameExist = false;
         },
         async muteHost(item) {
             const user = AV.Object.createWithoutData('RoomUser', item.id);

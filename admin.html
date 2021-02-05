@@ -15,8 +15,7 @@
 </head>
 
 </html>
-
-<body x-data="admin()">
+<body x-data="admin()" x-init="init()">
     <div class="columns is-centered">
         <div class="column is-half">
             <!-- header -->
@@ -41,7 +40,7 @@
                         </label>
                         <input class="nes-input" id="name_field" type="text" x-model="roomName" />
                     </div>
-                    <div class="nes-field">
+                    <div x-show="!usernameExist" class="nes-field">
                         <label for="name_field">
                             Your nickname
                         </label>
@@ -50,6 +49,9 @@
                     <button class="nes-btn is-primary mt-2" type="button" x-bind:class="{'is-disabled':roomId}"
                         x-on:click="createRoom()">
                         Create
+                    </button>
+                    <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
+                        Change User
                     </button>
                 </div>
             </div>
