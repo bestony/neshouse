@@ -107,7 +107,7 @@ function index() {
                     await this._fetchRoomUser(roomId);
                     await this._showUI();
                 } catch (e) {
-                    alert("Room Invite Invalid, Pleask Check")
+                    alert("We cannot find the room, please check if the room link is valid.")
                 }
             }
 
