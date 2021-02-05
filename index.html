@@ -55,7 +55,7 @@
                         </input>
                     </div>
                     <button class="nes-btn is-primary mt-2" type="button" @click="loginWithInviteAndUsername()">
-                        Join Room
+                        Join
                     </button>
                     <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
                         Use Another Nickname
@@ -73,7 +73,7 @@
             </div>
             <div class="container" id="host" x-show="isShowChatRoom">
                 <h3 class="title">
-                    Host
+                    Speakers
                 </h3>
                 <div class="columns is-desktop is-multiline">
                     <template x-for="item in hosts" :key="item">
@@ -132,7 +132,7 @@
                         <div class="column" x-show="isAdmin || isHost">
                             <button class="nes-btn" x-text="rtcEnable?'Mute':'Unmute'" type="button"
                                 @click="muteMySelf">
-                                Mute
+                                Mute Myself
                             </button>
                         </div>
                         <div class="column" x-show="!isAdmin && !isHost && !hasApplication">
