@@ -48,26 +48,18 @@ NesHouse is a front-end project built on Agora, LeanCloud service, using Alpine.
 3. Find **AppID** and **AppKey** from LeanCloud's **App Backend** - **Apps you use** - **Settings** - **App Keys**, and record them for later use.
 4. Enable **Live Query** from LeanCloud's **App Backend** - **Apps You Use** - **Storage** - **Service Settings**
 5. In LeanCloud's **Application Backend** - **Application you use** - **Storage** - **Objects** and create a Class named **RoomUser**.
-6. Fill in the application AppID of SoundCloud recorded above and the AppID and APPkey of LeanCloud into the configuration at the top of `js/app.js` and `js/admin.js`.
+6. Fill in the application AppID of SoundCloud recorded above and the AppID and APPkey of LeanCloud into the configuration at the top of `js/config.js`.
 7. Deploy the modified files to your own server and configure the domain name to point to.
 
 ### Configuration file description
 
-**js/app.js**
+**js/config.js**
 ```js
 const AVAPPID = "" // LeanCloud AppID
 const AVAPPKEY = "" // LeanCloud AppKey
 const BASEURL = "" // The path where the final page is located, the generated share link will be generated based on this address
 const DEFAULT_TEXT = "Please contact <a href='mailto:bestony@linux.com'>bestony@linux.com</a> to Learn more" // Text displayed at the top of the page
 const AGORAAPPID = "" // AppID for Agora
-```
-
-
-**js/admin.js**
-```js
-const AVAPPID = "" // LeanCloud AppID
-const AVAPPKEY = "" // LeanCloud AppKey
-const BASEURL = "" // The path where the final page is located, the generated share link will be generated based on this address
 ```
 
 ## Contribute to the project

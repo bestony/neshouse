@@ -49,26 +49,18 @@ NesHouse 是一个基于 Agora、LeanCloud 服务，使用 Alpine.js 、Bulma Cs
 3. 从 LeanCloud 的**应用后台** - **你使用的应用** - **设置** - **应用 Keys** 中找到 **AppID** 和 **AppKey**，将其记录下来，以备后用。
 4. 从 LeanCloud 的**应用后台** - **你使用的应用** - **存储** - **服务设置** 中启用 **Live Query**
 5. 在 LeanCloud 的**应用后台** - **你使用的应用** - **存储** - **结构化数据** ，并创建一个名为 **RoomUser** 的 Class。
-6. 将上面记录的声网的应用 AppID 和 LeanCloud 的 AppID 和 APPkey 填写到 `js/app.js` 和 `js/admin.js` 顶部的配置中。
+6. 将上面记录的声网的应用 AppID 和 LeanCloud 的 AppID 和 APPkey 填写到 `js/config.js` 顶部的配置中。
 7. 将修改好的文件部署到你自己的服务器上，并配置域名指向。
 
 ### 配置说明
 
-**js/app.js**
+**js/config.js**
 ```js
 const AVAPPID = "" // LeanCloud AppID
 const AVAPPKEY = "" // LeanCloud AppKey
 const BASEURL = "" // 最终网页所在的路径，生成的分享链接会基于这个地址产生
 const DEFAULT_TEXT = "Please contact <a href='mailto:bestony@linux.com'>bestony@linux.com</a> to Learn more" // 页面顶部展示的文字
 const AGORAAPPID = "" // 声网服务的 AppID
-```
-
-
-**js/admin.js**
-```js
-const AVAPPID = "" // LeanCloud AppID
-const AVAPPKEY = "" // LeanCloud AppKey
-const BASEURL = "" // 最终网页所在的路径，生成的分享链接会基于这个地址产生
 ```
 
 ## 贡献项目
