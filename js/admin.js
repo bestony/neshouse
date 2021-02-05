@@ -23,11 +23,11 @@ function admin() {
             win.focus();
         },
         generateShareText() {
-            return "I created a room, copy the link to the browser to open, you can chat with me!" + BASEURL + "?invite=" + this.roomId
+            return "I've created a chat room on NESHouse. Copy & open the following link in your browser and let's chat! " + BASEURL + "?invite=" + this.roomId
         },
         copyLink() {
             if (!this.roomId || !this.userId) {
-                alert("Room error, please regenerate!");
+                alert("There was an error creating the room, please refresh this page.");
                 return;
             }
             ;
@@ -35,7 +35,7 @@ function admin() {
                 if (result.state == "granted" || result.state == "prompt") {
                     navigator.clipboard.writeText(this.generateShareText())
                 } else {
-                    alert("The browser forbids copying. Please copy the shared information in the input box above")
+                    alert("Your browser forbids text copying. Please copy the text in the box.")
                     console.log(result.state)
                 }
             });
@@ -51,7 +51,7 @@ function admin() {
             try {
                 if (!username) {
                     if (!this.nickName) {
-                        alert("Nickname cannot be empty")
+                        alert("You have to choose a nickname. :)")
                         return
                     }
                     username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
@@ -72,7 +72,7 @@ function admin() {
                 try {
                     // Create Room and make currentUser as Admin
                     if (!this.roomName) {
-                        alert("Room name cannot be empty")
+                        alert("You have to name the room. :)")
                         return
                     }
                     const Room = AV.Object.extend('Room');
@@ -88,11 +88,11 @@ function admin() {
                     this.isShowShareArea = true;
                     this.shareText = this.generateShareText();
                 } catch (e) {
-                    alert("can't create room,send email to bestony@linux.com");
+                    alert("Chat room cannot be created, please shoot an email to bestony@linux.com.");
                     console.log(e);
                 }
             } catch (e) {
-                alert("can't register account,send email to bestony@linux.com");
+                alert("Failed to register the account, please shoot an email to bestony@linux.com.");
                 console.log(e);
             }
         }
