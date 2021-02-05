@@ -23,31 +23,31 @@ var options = {
     token: null,
 };
 
-window.addEventListener("unload", function (event) {
-    event.preventDefault();
-    document.querySelectorAll('[x-data]').forEach(async (el) => {
-        await el.__x.getUnobservedData().deInit();
-    });
-});
-window.addEventListener("unbeforeload", function (event) {
-    event.preventDefault();
-    document.querySelectorAll('[x-data]').forEach(async (el) => {
-        await el.__x.getUnobservedData().deInit();
-    });
-});
-window.onbeforeunload = function (event) {
-    event.preventDefault();
-    document.querySelectorAll('[x-data]').forEach(async (el) => {
-        await el.__x.getUnobservedData().deInit();
-    });
-}
+// window.addEventListener("unload", function (event) {
+//     event.preventDefault();
+//     document.querySelectorAll('[x-data]').forEach(async (el) => {
+//         await el.__x.getUnobservedData().deInit();
+//     });
+// });
+// window.addEventListener("unbeforeload", function (event) {
+//     event.preventDefault();
+//     document.querySelectorAll('[x-data]').forEach(async (el) => {
+//         await el.__x.getUnobservedData().deInit();
+//     });
+// });
+// window.onbeforeunload = function (event) {
+//     event.preventDefault();
+//     document.querySelectorAll('[x-data]').forEach(async (el) => {
+//         await el.__x.getUnobservedData().deInit();
+//     });
+// }
 
-window.unload = function (event) {
-    event.preventDefault();
-    document.querySelectorAll('[x-data]').forEach(async (el) => {
-        await el.__x.getUnobservedData().deInit();
-    });
-}
+// window.unload = function (event) {
+//     event.preventDefault();
+//     document.querySelectorAll('[x-data]').forEach(async (el) => {
+//         await el.__x.getUnobservedData().deInit();
+//     });
+// }
 
 function index() {
     return {
@@ -116,14 +116,14 @@ function index() {
         },
         async deInit() {
             // 保留有权限的用户数据
-            if (this.isAdmin || this.isHost) {
+            if (!this.isAdmin && !this.isHost) {
                 const loginRecord = AV.Object.createWithoutData('RoomUser', this.loginRecordId);
                 await loginRecord.destroy();
             }
             // 关闭声网通道
-            await this.rtcClient.leave();
+            await this.rtcClient.client.leave();
             // 关闭网页
-            window.close();
+            window.location.href = BASEURL;
         },
 
         // loginWithInviteAndUsername
