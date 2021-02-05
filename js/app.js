@@ -129,7 +129,11 @@ function index() {
 
         // loginWithInviteAndUsername
         async loginWithInviteAndUsername() {
-            let username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
+            let username = localStorage.getItem("username");
+            if (!username) {
+                username = Math.floor(Math.random() * 10000).toString(5) + Math.floor(Math.random() * 10000).toString(5);
+                localStorage.setItem("username", username);
+            }
             this._showProgress();
             await this._loginWithUsername(username, this.nickname);
             try {
@@ -248,10 +252,14 @@ function index() {
             this.subtitle = "";
         },
         _getParam() {
-
             let urlParam = new URL(location.href).searchParams;
             let roomId = urlParam.get("invite")
             let username = urlParam.get("user")
+            if (username) {
+                localStorage.setItem("username", username)
+            } else {
+                username = localStorage.getItem("user");
+            }
             return {
                 roomId,
                 username
@@ -283,12 +291,17 @@ function index() {
             let roomQuery = new AV.Query('Room');
             let room = await roomQuery.get(roomId);
             this.roomTitle = room.get("title");
-
-            // 移除当前用户的历史用户
             let roomUserQuery = new AV.Query("RoomUser");
             roomUserQuery.equalTo("userId", user.id);
+            roomUserQuery.equalTo("roomId", roomId);
             let roomUser = await roomUserQuery.find();
-            AV.Object.destroyAll(roomUser);
+            // 记录用户历史权限
+            let role = null;
+            if (roomUser.length != 0) {
+                role = roomUser[0].get("role")
+            }
+            // 移除当前用户的历史用户
+            await AV.Object.destroyAll(roomUser);
 
             // 如果用户是管理员，则设定管理员标志
             let adminUser = room.get("adminUser");
@@ -315,8 +328,27 @@ function index() {
                 rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
                 rtc.localAudioTrack.setEnabled(true);
                 await rtc.client.publish([rtc.localAudioTrack]);
+            }
+            if (role == "host") {
+                this.isHost = true;
+                // create room user record
+                const host = new RoomUser();
+                host.set("roomId", room.id);
+                host.set("username", username);
+                host.set("nickname", user.get("nickname"))
+                host.set("userId", user.id);
+                host.set("role", 'host');
+                let res = await host.save();
 
-            } else {
+                // loginRecordId
+                this.loginRecordId = res.id;
+
+                let rtc = await this._joinChat();
+                rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+                rtc.localAudioTrack.setEnabled(true);
+                await rtc.client.publish([rtc.localAudioTrack]);
+            }
+            if (!this.isAdmin && !this.isHost) {
                 const guest = new RoomUser();
                 guest.set("roomId", room.id);
                 guest.set("username", username);
@@ -428,7 +460,7 @@ function index() {
                             nickname: guest.get("nickname"),
                             userId: guest.get("userId"),
                             role: guest.get("role"),
-                            forceMute: guest.get("forceMute"),
+                            forceMute: guest.get("forceMute") || false,
                             id: guest.id,
                             status: false,
                         }]
@@ -531,7 +563,6 @@ function index() {
                 });
                 // some user leave
                 liveQuery.on('delete', (guest) => {
-
                     // 有用户离开
                     let role = guest.get("role");
                     let userId = guest.get("userId");
@@ -542,7 +573,6 @@ function index() {
                             }
                             return true;
                         })
-
                         this.guests = newGuest
                     }
 
