@@ -70,8 +70,10 @@
                 <p class="title">User Agreement</p>
                 <p>Please allow the app to use your playback device.</p>
                 <button type="button" class="nes-btn is-success" @click="showForm">OK</button>
-
             </div>
+            <h2 class="title" x-show="isShowChatRoom">
+                <span x-text="roomTitle"></span>
+            </h2>
             <div class="container" id="host" x-show="isShowChatRoom">
                 <h3 class="title">
                     Speakers
