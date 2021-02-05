@@ -193,6 +193,33 @@ function index() {
             })
             alert("Application approved");
         },
+        async adminSwitch(item) {
+            const user = AV.Object.createWithoutData('RoomUser', item.id);
+            user.set("role", item.role != "admin" ? "admin" : "host");
+            await user.save();
+            let roomQuery = new AV.Query('Room');
+            let room = await roomQuery.get(this.routerParam.roomId);
+            let adminUsers = null;
+            if (item.role != "admin") {
+                if (room.get("adminUser").indexOf(",") == -1) {
+                    adminUsers = [room.get("adminUser"), item.id]
+                } else {
+                    adminUsers = JSON.parse(room.get("adminUser")).push(item.id)
+                }
+            } else {
+                if (room.get("adminUser").indexOf(",") == -1) {
+                    adminUsers = [this.loginRecordId]
+                } else {
+                    nowAdminUsers = JSON.parse(room.get("adminUser"))
+                    adminUsers = await nowAdminUsers.filter(object => {
+                        return object != item.id;
+                    })
+                }
+            }
+            room.set("adminUser", JSON.stringify(adminUsers));
+            await room.save();
+            alert("OK");
+        },
 
         _isInWeChat() {
             return navigator.userAgent.indexOf("MicroMessenger") != -1
@@ -264,9 +291,14 @@ function index() {
             AV.Object.destroyAll(roomUser);
 
             // 如果用户是管理员，则设定管理员标志
-            if (user.id === room.get("adminUser")) {
+            let adminUser = room.get("adminUser");
+            if (adminUser.indexOf(",") == -1) {
+                adminUser = adminUser;
+            } else {
+                adminUser = JSON.parse(adminUser);
+            }
+            if (adminUser.indexOf(user.id) != -1) {
                 this.isAdmin = true;
-
                 // create room user record
                 const host = new RoomUser();
                 host.set("roomId", room.id);
@@ -334,6 +366,7 @@ function index() {
                         username: item.get("username"),
                         nickname: item.get("nickname"),
                         userId: item.get("userId"),
+                        role: item.get("role"),
                         id: item.id,
                         status: false,
                     })
@@ -394,6 +427,8 @@ function index() {
                             username: guest.get("username"),
                             nickname: guest.get("nickname"),
                             userId: guest.get("userId"),
+                            role: guest.get("role"),
+                            forceMute: guest.get("forceMute"),
                             id: guest.id,
                             status: false,
                         }]
@@ -449,22 +484,28 @@ function index() {
                     // if someone be host
                     if (object.get("role") == "host" && updatedKeys[0] == 'role') {
                         // if current user is changed user ,enable local track
-                        if (object.id == this.loginRecordId) {
+                        if (object.id == this.loginRecordId && this.isHost == false) {
                             rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
                             rtc.localAudioTrack.setEnabled(true);
                             await rtc.client.publish([rtc.localAudioTrack]);
                             this.isHost = true;
                             alert("You have become an host and can start speaking.");
                         }
+                        newHost = this.hosts.filter(item => {
+                            return item.id != object.id;
+                        })
+                        this.hosts = newHost;
                         // change icon location
                         this.hosts = [...this.hosts, {
                             username: object.get("username"),
                             nickname: object.get("nickname"),
                             userId: object.get("userId"),
+                            role: object.get("role"),
                             id: object.id,
                             forceMute: object.get("forceMute"),
                             status: false
                         }]
+
                         newGuest = this.guests.filter(item => {
                             if (item.userId == object.get("userId")) {
                                 return false;
@@ -472,7 +513,20 @@ function index() {
                             return true;
                         })
                         this.guests = newGuest
+                    }
 
+                    if (updatedKeys[0] == "role") {
+                        if (object.id == this.loginRecordId && object.get("role") == 'admin') {
+                            this.isAdmin = true;
+                        }
+                        if (object.id == this.loginRecordId && object.get("role") != 'admin') {
+                            this.isAdmin = false;
+                        }
+                        this.hosts.forEach(item => {
+                            if (item.role != object.get("role") && item.id == object.id) {
+                                item.role = object.get("role");
+                            }
+                        })
                     }
                 });
                 // some user leave
