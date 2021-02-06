@@ -78,6 +78,7 @@ function index() {
 
         // control
         isShowChatRoom: false,
+        isShowUserControl: false,
         isShowRegsiter: false,
         isShowButton: false,
         hasApplication: false,
@@ -86,6 +87,7 @@ function index() {
         rtcClient: null,
         rtcEnable: true,
 
+        selectUser: {},
 
         async init() {
 
@@ -197,12 +199,13 @@ function index() {
         },
         async makePeopleBeHost(item) {
             const user = AV.Object.createWithoutData('RoomUser', item.id);
-            user.set("role", "host");
+            if (item.role == "guest") {
+                user.set("role", "host");
+            } else {
+                user.set("role", "guest");
+            }
             await user.save();
-            this.applications = this.applications.filter(obj => {
-                return item.id != obj.id
-            })
-            alert("Request approved.");
+            alert("OK");
         },
         async adminSwitch(item) {
             const user = AV.Object.createWithoutData('RoomUser', item.id);
@@ -229,6 +232,24 @@ function index() {
             }
             room.set("adminUser", JSON.stringify(adminUsers));
             await room.save();
+            alert("OK");
+        },
+        userControl(item) {
+            this.selectUser = {
+                id: item.id,
+                role: item.role,
+                nickname: item.nickname,
+                forceMute: item.forceMute || false,
+            };
+            this.isShowControl = true;
+        },
+        async kickUser(item) {
+            let roomUserQuery = new AV.Query("RoomUser");
+            roomUserQuery.equalTo("objectId", item.id);
+            roomUserQuery.equalTo("roomId", this.routerParam.roomId);
+            let roomUser = await roomUserQuery.find();
+            // 移除当前用户
+            await AV.Object.destroyAll(roomUser);
             alert("OK");
         },
 
@@ -396,6 +417,8 @@ function index() {
                     guestsArray.push({
                         username: item.get("username"),
                         nickname: item.get("nickname"),
+                        role: item.get("role"),
+                        id: item.id,
                         userId: item.get("userId"),
                         status: false,
                     })
@@ -478,6 +501,7 @@ function index() {
                             username: guest.get("username"),
                             nickname: guest.get("nickname"),
                             userId: guest.get("userId"),
+                            role: guest.get("role"),
                             id: guest.id,
                         }]
                     }
@@ -514,6 +538,7 @@ function index() {
                         this.applications = [...this.applications, {
                             username: object.get("username"),
                             nickname: object.get("nickname"),
+                            role: object.get("role"),
                             userId: object.get("userId"),
                             id: object.id,
                             application: true,
@@ -560,6 +585,28 @@ function index() {
                             return true;
                         })
                         this.guests = newGuest
+                    }
+
+                    if (object.get("role") == "guest" && updatedKeys[0] == 'role') {
+                        if (object.id == this.loginRecordId) {
+                            rtc.localAudioTrack.setEnabled(false);
+                            this.isHost = false;
+                            alert("You've become a guest!")
+                        }
+                        newHost = this.hosts.filter(item => {
+                            return item.id != object.id;
+                        })
+                        this.hosts = newHost;
+                        // change icon location
+                        this.guests = [...this.guests, {
+                            username: object.get("username"),
+                            nickname: object.get("nickname"),
+                            userId: object.get("userId"),
+                            role: object.get("role"),
+                            id: object.id,
+                            forceMute: object.get("forceMute"),
+                            status: false
+                        }]
                     }
 
                     if (updatedKeys[0] == "role") {
