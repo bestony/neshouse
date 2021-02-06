@@ -1,26 +1,33 @@
-
 html, body, pre, code, kbd, samp {
-    font-family: "Press Start 2P"; 
+    font-family: "Press Start 2P";
     /* "Press Start 2P"; */
     /*font-size: 30px;*/
 }
-.container{
-	margin-top: 30px;
-	padding: 1.5rem 2rem;
+
+.container {
+    margin-top: 30px;
+    padding: 1.5rem 2rem;
     border-color: #000;
     border-style: solid;
     border-width: 4px;
 }
-.container>.title{
-	display: table;
+
+.container>.title {
+    display: table;
     padding: 0 .5rem;
     margin: -2.2rem -1rem 1rem;
     font-size: 1rem;
     background-color: #fff;
 }
-.username{
-	font-size: 20px;
+
+.username {
+    font-size: 20px;
 }
-.header{
+
+.username:hover {
+    color: rgb(87, 98, 255);
+}
+
+.header {
     margin: 20px 0px;
 }

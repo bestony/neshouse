@@ -87,7 +87,7 @@
                                     x-text="$truncate(item.nickname,2,'')" :title="item.nickname"></div>
                                 <span>
                                     <span class="username" x-bind:class="{ 'nes-text is-primary': item.status }"
-                                        x-text="$truncate(item.nickname,5)"></span>
+                                        x-text="$truncate(item.nickname,5)" @click="userControl(item)"></span>
                                 </span>
                             </div>
                         </div>
@@ -106,13 +106,13 @@
                                     <div class="nes-avatar  is-rounded is-large"
                                         style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px;"
                                         x-text="$truncate(item.nickname,2,'')"></div>
-                                    <span class="username" x-text="$truncate(item.nickname,5)">
+                                    <span class="username" x-text="$truncate(item.nickname,5)"
+                                        @click="userControl(item)">
 
                                     </span>
                                 </div>
                             </div>
                         </template>
-
                     </div>
                 </div>
             </div>
@@ -144,6 +144,31 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="container" id="userControl" x-show="selectUser.id && isAdmin">
+                        <h3 class="title">
+                            User
+                        </h3>
+                        <div class="avatar">
+                            <div class="column">
+                                <p><label>Nickname: </label><span x-text="selectUser.nickname||NaN"></span></p>
+                                <p><label>Role: </label><span x-text="selectUser.role||NaN"></span></p>
+                                <button type="button" @click="muteHost(selectUser)" class="nes-btn is-warning"
+                                    style="margin-right: 20px;" x-text="selectUser.forceMute?'Unmute':'Mute'"></button>
+                                <button type="button" @click="adminSwitch(selectUser);selectUser={}"
+                                    class="nes-btn is-warning" style="margin-right: 20px;"
+                                    x-show="selectUser.role!='guest'"
+                                    x-text="selectUser.role=='admin'?'↓ Host':'↑ Admin'"></button>
+                                <button type="button" class="nes-btn is-warning" style="margin-right: 20px;"
+                                    x-show="selectUser.role!='admin'"
+                                    @click="makePeopleBeHost(selectUser);selectUser={}"
+                                    x-text="selectUser.role=='host'?'↓ Audience':'↑ Host'"></button>
+                                <button type="button" class="nes-btn is-error" style="margin-right: 20px;"
+                                    @click="kickUser(selectUser);selectUser={}">Kick</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <!-- charroom end -->
@@ -169,25 +194,6 @@
             <!-- share end -->
 
             <!-- controlpanel -->
-            <div class="container" id="host-list" x-show="isShowChatRoom && isAdmin">
-                <h3 class="title">
-                    Speaker List
-                </h3>
-                <div class="lists">
-                    <ul class="nes-list is-circle">
-                        <template x-for="item in hosts" :key="item">
-                            <li x-show="userId!=item.userId">
-                                <span x-text="item.nickname"></span>
-                                <button type="button" @click="muteHost(item)" class="nes-btn is-warning"
-                                    style="margin-right: 20px;" x-text="item.forceMute?'Unmute':'Mute'"></button>
-                                <button type="button" @click="adminSwitch(item)" class="nes-btn is-warning"
-                                    style="margin-right: 20px;" x-text="item.role=='admin'?'↓ Host':'↑ Admin'"></button>
-                            </li>
-                        </template>
-                    </ul>
-                </div>
-
-            </div>
             <div class="container" id="application-list" x-show="isShowChatRoom && isAdmin">
                 <h3 class="title">
                     Speakers' Waiting Bench
