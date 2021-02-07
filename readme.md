@@ -35,7 +35,7 @@ NesHouse is a front-end project built on Agora, LeanCloud service, using Alpine.
 
 ## Dependency Services
 
-1. [LeanCloud Gloabl](https://console.leancloud.app/)
+1. [LeanCloud Global](https://console.leancloud.app/)
 2. [Agora.io](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB)
 3. （non-essential）[Vercel](https://vercel.com/) 
 
