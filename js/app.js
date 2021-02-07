@@ -125,6 +125,12 @@ function index() {
             // 关闭声网通道
             await this.rtcClient.client.leave();
             // 关闭网页
+            let roomUserQuery = new AV.Query("RoomUser");
+            roomUserQuery.equalTo("objectId", this.loginRecordId);
+            roomUserQuery.equalTo("roomId", this.routerParam.roomId);
+            let roomUser = await roomUserQuery.find();
+            // 移除当前用户
+            await AV.Object.destroyAll(roomUser);
             window.location.href = BASEURL;
         },
 
