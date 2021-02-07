@@ -23,31 +23,31 @@ var options = {
     token: null,
 };
 
-// window.addEventListener("unload", function (event) {
-//     event.preventDefault();
-//     document.querySelectorAll('[x-data]').forEach(async (el) => {
-//         await el.__x.getUnobservedData().deInit();
-//     });
-// });
-// window.addEventListener("unbeforeload", function (event) {
-//     event.preventDefault();
-//     document.querySelectorAll('[x-data]').forEach(async (el) => {
-//         await el.__x.getUnobservedData().deInit();
-//     });
-// });
-// window.onbeforeunload = function (event) {
-//     event.preventDefault();
-//     document.querySelectorAll('[x-data]').forEach(async (el) => {
-//         await el.__x.getUnobservedData().deInit();
-//     });
-// }
+window.addEventListener("unload", function (event) {
+    event.preventDefault();
+    document.querySelectorAll('[x-data]').forEach(async (el) => {
+        await el.__x.getUnobservedData().deInit(false);
+    });
+});
+window.addEventListener("unbeforeload", function (event) {
+    event.preventDefault();
+    document.querySelectorAll('[x-data]').forEach(async (el) => {
+        await el.__x.getUnobservedData().deInit(false);
+    });
+});
+window.onbeforeunload = function (event) {
+    event.preventDefault();
+    document.querySelectorAll('[x-data]').forEach(async (el) => {
+        await el.__x.getUnobservedData().deInit(false);
+    });
+}
 
-// window.unload = function (event) {
-//     event.preventDefault();
-//     document.querySelectorAll('[x-data]').forEach(async (el) => {
-//         await el.__x.getUnobservedData().deInit();
-//     });
-// }
+window.unload = function (event) {
+    event.preventDefault();
+    document.querySelectorAll('[x-data]').forEach(async (el) => {
+        await el.__x.getUnobservedData().deInit(false);
+    });
+}
 
 function index() {
     return {
@@ -116,11 +116,31 @@ function index() {
             }
 
         },
-        async deInit() {
-            // 保留有权限的用户数据
-            if (!this.isAdmin && !this.isHost) {
-                const loginRecord = AV.Object.createWithoutData('RoomUser', this.loginRecordId);
-                await loginRecord.destroy();
+        async deInit(manual) {
+            manual = manual || false;
+            if (manual) {
+                // 保留有权限的用户数据
+                if (this.isAdmin) {
+                    let roomUserQuery = new AV.Query("RoomUser");
+                    roomUserQuery.equalTo("roomId", this.routerParam.roomId);
+                    let roomUser = await roomUserQuery.find();
+                    // 移除当前用户
+                    await AV.Object.destroyAll(roomUser);
+                    let roomQuery = new AV.Query("Room");
+                    roomUserQuery.equalTo("roomId", this.routerParam.roomId);
+                    let room = await roomQuery.find();
+                    // 移除当前用户
+                    await AV.Object.destroyAll(room);   
+                }
+            } else {
+                if(this.isAdmin||this.isHost){
+                    const user = AV.Object.createWithoutData('RoomUser', this.loginRecordId);
+                    user.set('leave', true);
+                    await user.save();
+                }else{
+                    const loginRecord = AV.Object.createWithoutData('RoomUser', this.loginRecordId);
+                    await loginRecord.destroy();
+                }
             }
             // 关闭声网通道
             await this.rtcClient.client.leave();
@@ -423,7 +443,7 @@ function index() {
                         status: false,
                     })
                 }
-                if (item.get("role") == "admin" || item.get("role") == "host") {
+                if ((item.get("role") == "admin" || item.get("role") == "host") && !item.get("leave")) {
                     hostsArray.push({
                         username: item.get("username"),
                         nickname: item.get("nickname"),
@@ -543,6 +563,14 @@ function index() {
                             id: object.id,
                             application: true,
                         }]
+                    }
+
+                    if (updatedKeys[0] == 'leave'
+                        && object.get("leave")) {
+                        newHost = this.hosts.filter(item => {
+                            return item.id != object.id;
+                        })
+                        this.hosts = newHost;
                     }
 
                     if (this.isAdmin &&
