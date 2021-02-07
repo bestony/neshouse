@@ -121,16 +121,16 @@ function index() {
             if (manual) {
                 // 保留有权限的用户数据
                 if (this.isAdmin) {
+                    let roomQuery = new AV.Query("Room");
+                    roomQuery.equalTo("roomId", this.routerParam.roomId);
+                    let room = await roomQuery.find();
+                    // 移除当前用户
+                    await AV.Object.destroyAll(room);  
                     let roomUserQuery = new AV.Query("RoomUser");
                     roomUserQuery.equalTo("roomId", this.routerParam.roomId);
                     let roomUser = await roomUserQuery.find();
                     // 移除当前用户
                     await AV.Object.destroyAll(roomUser);
-                    let roomQuery = new AV.Query("Room");
-                    roomUserQuery.equalTo("roomId", this.routerParam.roomId);
-                    let room = await roomQuery.find();
-                    // 移除当前用户
-                    await AV.Object.destroyAll(room);   
                 }
             } else {
                 if(this.isAdmin||this.isHost){
