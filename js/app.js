@@ -122,7 +122,7 @@ function index() {
                 // 保留有权限的用户数据
                 if (this.isAdmin) {
                     let roomQuery = new AV.Query("Room");
-                    roomQuery.equalTo("roomId", this.routerParam.roomId);
+                    roomQuery.equalTo("objectId", this.routerParam.roomId);
                     let room = await roomQuery.find();
                     // 移除当前用户
                     await AV.Object.destroyAll(room);  
