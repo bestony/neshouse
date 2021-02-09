@@ -43,10 +43,9 @@ html, body, pre, code, kbd, samp {
 
 .column.is-two-fifths {
   flex: auto;
+  margin: 0 auto;
 }
 
-@media only screen and (min-width: 720px) {
-  .column {
-    flex: auto !important;
-  }
+.nes-container.is-centered {
+  margin: 0 auto;
 }
