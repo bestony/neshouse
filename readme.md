@@ -7,6 +7,10 @@ An open source implementation of [clubhouse](https://www.joinclubhouse.com/)
 
 NesHouse is a front-end project built on Agora, LeanCloud service, using Alpine.js, Bulma Css, NES.css. This project implements a set of [clubhouse](https://www.joinclubhouse.com/) based on NES style, you can use NESHouse to create your own online live room, you can use NESHouse to create your ostart live room, or share it and invite others to join the discussion.
 
+## NESHouse Pro
+
+If you are interested in the commercial version of NESHouse, you can find further information on NESHouse Pro in [this PDF(Chinese)](https://postimg.aliavv.com/mbp2021/qiqe8.pdf).
+
 ## Features
 
 1. multi-chat live room support
