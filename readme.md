@@ -9,7 +9,7 @@ NesHouse is a front-end project built on Agora, LeanCloud service, using Alpine.
 
 ## NESHouse Pro
 
-If you are interested in the commercial version of NESHouse, you can find further information on NESHouse Pro in [this PDF(Chinese)](https://postimg.aliavv.com/mbp2021/qiqe8.pdf).
+If you are interested in the commercial version of NESHouse, further information on NESHouse Pro can be found in [this PDF(Chinese)](https://postimg.aliavv.com/mbp2021/qiqe8.pdf)
 
 ## Features
 
