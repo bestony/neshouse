@@ -43,6 +43,7 @@ NesHouse 是一个基于 Agora、LeanCloud 服务，使用 Alpine.js 、Bulma Cs
 1. [LeanCloud 国际版](https://console.leancloud.app/)
 2. [Agora.io 声网](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB)
 3. （非必需）[Vercel](https://vercel.com/) 
+4. HTTPS 
 
 ## 如何使用
 
