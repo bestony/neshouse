@@ -7,6 +7,10 @@
 
 NesHouse 是一个基于 Agora、LeanCloud 服务，使用 Alpine.js 、Bulma Css、NES.css 构建的前端项目，这个项目实现了一套基于 NES 风格的 [clubhouse](https://www.joinclubhouse.com/)，你可以使用 NESHouse 来创建自己的线上直播间，也可以将其分享出去，邀请别人一起参与讨论。
 
+## NESHouse Pro
+
+如果你需要商业化版本的 NESHouse，可以访问[这个 PDF](https://postimg.aliavv.com/mbp2021/qiqe8.pdf) 查看 NESHouse Pro 的具体信息
+
 ## 特性
 
 1. 多聊天直播间支持
@@ -39,6 +43,7 @@ NesHouse 是一个基于 Agora、LeanCloud 服务，使用 Alpine.js 、Bulma Cs
 1. [LeanCloud 国际版](https://console.leancloud.app/)
 2. [Agora.io 声网](https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB)
 3. （非必需）[Vercel](https://vercel.com/) 
+4. HTTPS 
 
 ## 如何使用
 
