@@ -32,7 +32,6 @@ html, body, pre, code, kbd, samp {
 .header {
   margin: 20px 0px;
   padding: 40px 0;
-  text-align: center;
   line-height: 2.0;
 }
 
@@ -43,9 +42,14 @@ html, body, pre, code, kbd, samp {
 
 .column.is-two-fifths {
   flex: auto;
+}
+
+.column {
   margin: 0 auto;
 }
 
-.nes-container.is-centered {
-  margin: 0 auto;
+@media (min-width: 200px) {
+  .column {
+    width: 60% !important;
+  }
 }

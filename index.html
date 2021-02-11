@@ -54,12 +54,14 @@
             <input class="nes-input" id="name_field" x-model="nickname" type="text">
             </input>
           </div>
-          <button class="nes-btn is-primary mt-2" type="button" @click="loginWithInviteAndUsername()">
-            Join
-          </button>
-          <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
-            Use Another Nickname
-          </button>
+          <div style="display: flex; align-items: center;">
+            <button class="nes-btn is-primary mt-2" type="button" @click="loginWithInviteAndUsername()">
+              Join
+            </button>
+            <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
+              Use Another Nickname
+            </button>
+          </div>
         </div>
       </div>
       <!-- register end -->
@@ -119,26 +121,30 @@
           Control
         </h3>
         <div class="avatar">
-          <div class="columns is-desktop">
-            <div class="column" x-show="isAdmin">
-              <button class="nes-btn is-error" @click="deInit(true)" type="button">
-                Destroy Room
-              </button>
+          <div class="columns is-desktop" style="display: block; align-items: center;">
+            <div style="display: flex;">
+              <div class="column" x-show="isAdmin">
+                <button class="nes-btn is-error" @click="deInit(true)" type="button">
+                  Destroy Room
+                </button>
+              </div>
+              <div class="column">
+                <button class="nes-btn is-error" @click="deInit(false)" type="button">
+                  Leave Room
+                </button>
+              </div>
             </div>
-            <div class="column">
-              <button class="nes-btn is-error" @click="deInit(false)" type="button">
-                Leave Room
-              </button>
-            </div>
-            <div class="column" x-show="isAdmin || isHost">
-              <button class="nes-btn" x-text="rtcEnable?'Mute':'Unmute'" type="button" @click="muteMySelf">
-                Mute Myself
-              </button>
-            </div>
-            <div class="column" x-show="!isAdmin && !isHost && !hasApplication">
-              <button class="nes-btn" type="button" @click="makeApplication">
-                Request to Speak
-              </button>
+            <div style="display: flex;">
+              <div class="column" x-show="isAdmin || isHost">
+                <button class="nes-btn" x-text="rtcEnable?'Mute':'Unmute'" type="button" @click="muteMySelf">
+                  Mute Myself
+                </button>
+              </div>
+              <div class="column" x-show="!isAdmin && !isHost && !hasApplication">
+                <button class="nes-btn" type="button" @click="makeApplication">
+                  Request to Speak
+                </button>
+              </div>
             </div>
           </div>
 
@@ -150,16 +156,20 @@
               <div class="column">
                 <p><label>Nickname: </label><span x-text="selectUser.nickname||NaN"></span></p>
                 <p><label>Role: </label><span x-text="selectUser.role||NaN"></span></p>
-                <button type="button" @click="muteHost(selectUser)" class="nes-btn is-warning"
-                  style="margin-right: 20px;" x-text="selectUser.forceMute?'Unmute':'Mute'"></button>
-                <button type="button" @click="adminSwitch(selectUser);selectUser={}" class="nes-btn is-warning"
-                  style="margin-right: 20px;" x-show="selectUser.role!='guest'"
-                  x-text="selectUser.role=='admin'?'↓ Host':'↑ Admin'"></button>
-                <button type="button" class="nes-btn is-warning" style="margin-right: 20px;"
-                  x-show="selectUser.role!='admin'" @click="makePeopleBeHost(selectUser);selectUser={}"
-                  x-text="selectUser.role=='host'?'↓ Audience':'↑ Host'"></button>
-                <button type="button" class="nes-btn is-error" style="margin-right: 20px;"
-                  @click="kickUser(selectUser);selectUser={}">Kick</button>
+                <div style="display: flex; text-align: center;">
+                  <button type="button" @click="muteHost(selectUser)" class="nes-btn is-warning"
+                    style="margin: 10px 15px;" x-text="selectUser.forceMute?'Unmute':'Mute'"></button>
+                  <button type="button" @click="adminSwitch(selectUser);selectUser={}" class="nes-btn is-warning"
+                    style="margin: 10px 15px;" x-show="selectUser.role!='guest'"
+                    x-text="selectUser.role=='admin'?'↓ Host':'↑ Admin'"></button>
+                </div>
+                <div style="display: flex; text-align: center;">
+                  <button type="button" class="nes-btn is-warning" style="margin: 10px 15px;"
+                    x-show="selectUser.role!='admin'" @click="makePeopleBeHost(selectUser);selectUser={}"
+                    x-text="selectUser.role=='host'?'↓ Audience':'↑ Host'"></button>
+                  <button type="button" class="nes-btn is-error" style="margin: 10px 15px;"
+                    @click="kickUser(selectUser);selectUser={}">Kick</button>
+                </div>
               </div>
             </div>
           </div>
@@ -206,7 +216,7 @@
       </div>
       <!-- controlpanel end -->
 
-      <div style="margin-top: 10px; text-align: center;">
+      <div style="margin-top: 10px;">
         <p>Designed & developed by <a href="https://github.com/bestony">Bestony</a>, co-developed by <a
             href="https://github.com/johnpoint">johnpoint</a>
         <p>Sponsored by: <a href="https://leancloud.app/">LeanCloud</a>, <a
