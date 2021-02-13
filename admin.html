@@ -50,13 +50,15 @@
             </label>
             <input class="nes-input" id="nickName" type="text" x-model="nickName" />
           </div>
-          <button class="nes-btn is-primary mt-2" type="button" x-bind:class="{'is-disabled':roomId}"
-            x-on:click="createRoom()">
-            Create
-          </button>
-          <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
-            Change User
-          </button>
+          <div style="display: flex; text-align: center;">
+            <button class="nes-btn is-primary mt-2" type="button" x-bind:class="{'is-disabled':roomId}"
+              x-on:click="createRoom()">
+              Create
+            </button>
+            <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
+              Change User
+            </button>
+          </div>
         </div>
       </div>
       <!-- register end -->
