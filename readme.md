@@ -52,7 +52,7 @@ If you are interested in the commercial version of NESHouse, further information
 3. Find **AppID** and **AppKey** from LeanCloud's **App Backend** - **Apps you use** - **Settings** - **App Keys**, and record them for later use.
 4. Enable **Live Query** from LeanCloud's **App Backend** - **Apps You Use** - **Storage** - **Service Settings**
 5. In LeanCloud's **Application Backend** - **Application you use** - **Storage** - **Objects** and create a Class named **RoomUser**.
-6. Fill in the application AppID of SoundCloud recorded above and the AppID and APPkey of LeanCloud into the configuration at the top of `js/config.js`.
+6. Fill in the application AppID of Agora recorded above and the AppID and APPkey of LeanCloud into the configuration at the top of `js/config.js`.
 7. Deploy the modified files to your own server and configure the domain name to point to.
 
 ### Configuration file description
