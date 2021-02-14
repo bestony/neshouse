@@ -84,12 +84,12 @@
             <div class="column is-one-quarter is-desktop">
               <div class="user">
                 <div class="nes-avatar  is-rounded is-large"
-                  style="background-color: #ffc75f;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px;"
+                  style="background-color: #ffc75f;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; margin: 0 auto; width: 74px; height: 74px;"
                   x-text="$truncate(item.nickname,2,'')" :title="item.nickname"></div>
-                <span>
+                <div style="text-align: center; word-break: break-all;">
                   <span class="username" x-bind:class="{ 'nes-text is-primary': item.status }"
-                    x-text="$truncate(item.nickname,5)" @click="userControl(item)"></span>
-                </span>
+                    x-text="$truncate(item.nickname,15)" @click="userControl(item)"></span>
+                </div>
               </div>
             </div>
           </template>
@@ -105,11 +105,12 @@
               <div class="column is-one-quarter is-desktop">
                 <div class="user">
                   <div class="nes-avatar  is-rounded is-large"
-                    style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px;"
+                    style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; margin: 0 auto; width: 74px; height: 74px;"
                     x-text="$truncate(item.nickname,2,'')"></div>
-                  <span class="username" x-text="$truncate(item.nickname,5)" @click="userControl(item)">
-
-                  </span>
+                  <div style="text-align: center; word-break: break-all;">
+                    <span class="username" x-text="$truncate(item.nickname,15)" @click="userControl(item)">
+                    </span>
+                  </div>
                 </div>
               </div>
             </template>
@@ -133,8 +134,6 @@
                   Leave Room
                 </button>
               </div>
-            </div>
-            <div style="display: flex;">
               <div class="column" x-show="isAdmin || isHost">
                 <button class="nes-btn" x-text="rtcEnable?'Mute':'Unmute'" type="button" @click="muteMySelf">
                   Mute Myself
@@ -162,8 +161,6 @@
                   <button type="button" @click="adminSwitch(selectUser);selectUser={}" class="nes-btn is-warning"
                     style="margin: 10px 15px;" x-show="selectUser.role!='guest'"
                     x-text="selectUser.role=='admin'?'↓ Host':'↑ Admin'"></button>
-                </div>
-                <div style="display: flex; text-align: center;">
                   <button type="button" class="nes-btn is-warning" style="margin: 10px 15px;"
                     x-show="selectUser.role!='admin'" @click="makePeopleBeHost(selectUser);selectUser={}"
                     x-text="selectUser.role=='host'?'↓ Audience':'↑ Host'"></button>

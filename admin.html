@@ -71,16 +71,18 @@
         <div class="avatar">
           <textarea id="textarea_field" x-model="shareText" style="min-height: 7em;" class="nes-textarea"></textarea>
 
-          <div class="columns is-desktop">
+          <div class="columns is-desktop" style="padding-top: 25px">
             <div class="column is-two-fifths">
-              <button class="nes-btn is-primary" type="button" x-on:click="copyLink">
-                Copy & Share
-              </button>
+              <div style="display: flex; text-align: center;">
+                <button class="nes-btn is-primary" type="button" x-on:click="copyLink">
+                  Copy & Share
+                </button>
+                <button class="nes-btn is-success" type="button" x-on:click="loginAsAdmin">
+                  Log in to the room as Administrator
+                </button>
+              </div>
             </div>
           </div>
-          <button class="nes-btn is-success" type="button" x-on:click="loginAsAdmin">
-            Log in to the room as Administrator
-          </button>
         </div>
       </div>
       <!-- share end -->
