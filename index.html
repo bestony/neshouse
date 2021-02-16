@@ -79,12 +79,12 @@
         <h3 class="title">
           Speakers
         </h3>
-        <div class="columns is-desktop is-multiline">
+        <div class="columns is-desktop is-multiline" style="display: flex;">
           <template x-for="item in hosts" :key="item">
             <div class="column is-one-quarter is-desktop">
-              <div class="user">
+              <div class="user" style="margin: 0 30px;">
                 <div class="nes-avatar  is-rounded is-large"
-                  style="background-color: #ffc75f;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; margin: 0 auto; width: 74px; height: 74px;"
+                  style="background-color: #ffc75f;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px;"
                   x-text="$truncate(item.nickname,2,'')" :title="item.nickname"></div>
                 <div style="text-align: center; word-break: break-all;">
                   <span class="username" x-bind:class="{ 'nes-text is-primary': item.status }"
@@ -100,12 +100,12 @@
           Audience
         </h3>
         <div class="avatar">
-          <div class="columns is-desktop is-multiline">
+          <div class="columns is-desktop is-multiline" style="display: flex;">
             <template x-for="item in guests" :key="item">
               <div class="column is-one-quarter is-desktop">
-                <div class="user">
+                <div class="user" style="margin: 0 30px;">
                   <div class="nes-avatar  is-rounded is-large"
-                    style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; margin: 0 auto; width: 74px; height: 74px;"
+                    style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px;"
                     x-text="$truncate(item.nickname,2,'')"></div>
                   <div style="text-align: center; word-break: break-all;">
                     <span class="username" x-text="$truncate(item.nickname,15)" @click="userControl(item)">
