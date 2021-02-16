@@ -29,7 +29,7 @@ If you are interested in the commercial version of NESHouse, further information
 ## Demo
 
 - Create Chat Room: https://neshouse.com/admin.html
-- Defeault Page: https://neshouse.com/admin.html
+- Default Page: https://neshouse.com/admin.html
 
 ## Demo Flow of use
 
