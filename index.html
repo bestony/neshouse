@@ -25,7 +25,7 @@
 
 <body x-cloak x-data="index()" x-init="init()">
   <div class="columns is-centered">
-    <div class="column is-half">
+    <div class="column is-half" style="width: 60%;">
 
       <!-- header -->
       <div class="header">
@@ -81,14 +81,14 @@
         </h3>
         <div class="columns is-desktop is-multiline" style="display: flex;">
           <template x-for="item in hosts" :key="item">
-            <div class="column is-one-quarter is-desktop">
-              <div class="user" style="margin: 0 30px;">
+            <div class="column is-one-quarter is-desktop" style="width: 20%;">
+              <div class="user">
                 <div class="nes-avatar  is-rounded is-large"
-                  style="background-color: #ffc75f;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px;"
+                  style="background-color: #ffc75f;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px; margin: 0 auto;"
                   x-text="$truncate(item.nickname,2,'')" :title="item.nickname"></div>
-                <div style="text-align: center; word-break: break-all;">
+                <div style="text-align: center; word-break: break-all; width: 80px; margin: 0 auto;">
                   <span class="username" x-bind:class="{ 'nes-text is-primary': item.status }"
-                    x-text="$truncate(item.nickname,15)" @click="userControl(item)"></span>
+                    x-text="$truncate(item.nickname,10)" @click="userControl(item)"></span>
                 </div>
               </div>
             </div>
@@ -102,12 +102,12 @@
         <div class="avatar">
           <div class="columns is-desktop is-multiline" style="display: flex;">
             <template x-for="item in guests" :key="item">
-              <div class="column is-one-quarter is-desktop">
-                <div class="user" style="margin: 0 30px;">
+              <div class="column is-one-quarter is-desktop" style="width: 20%;">
+                <div class="user">
                   <div class="nes-avatar  is-rounded is-large"
-                    style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px;"
+                    style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px; margin: 0 auto;"
                     x-text="$truncate(item.nickname,2,'')"></div>
-                  <div style="text-align: center; word-break: break-all;">
+                  <div style="text-align: center; word-break: break-all; width: 80px; margin: 0 auto;">
                     <span class="username" x-text="$truncate(item.nickname,15)" @click="userControl(item)">
                     </span>
                   </div>
@@ -185,7 +185,7 @@
             class="nes-textarea"></textarea>
           <div class="columns is-desktop">
 
-            <div class="column is-two-fifths">
+            <div class="column is-two-fifths" style="margin: 0 auto;">
               <button class="nes-btn is-primary" type="button" @click="copyLink">
                 Copy Link & Share
               </button>
