@@ -2,97 +2,100 @@
 <html>
 
 <head>
-    <title>
-        NESHouse.com
-    </title>
-    <meta charset="UTF-8">
-    <link href="https://fonts.loli.net/css?family=Press+Start+2P" rel="stylesheet">
-    <link href="css/bulma.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/nes.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <script src="js/alpine.min.js"></script>
+  <title>
+    NESHouse.com
+  </title>
+  <meta charset="UTF-8">
+  <link href="https://fonts.loli.net/css?family=Press+Start+2P" rel="stylesheet">
+  <link href="css/bulma.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/nes.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <script src="js/alpine.min.js"></script>
 
-    <script src="js/config.js?v=20210207001"></script>
-    <script src="js/av-live-query-min.js"></script>
-    <script src="js/admin.js?v=20210207001"></script>
+  <script src="js/config.js?v=20210207001"></script>
+  <script src="js/av-live-query-min.js"></script>
+  <script src="js/admin.js?v=20210207001"></script>
 </head>
 
 </html>
 
 <body x-data="admin()" x-init="init()">
-    <div class="columns is-centered">
-        <div class="column is-half">
-            <!-- header -->
-            <div class="header">
-                <h1 class="title">
-                    NESHouse.com
-                </h1>
-                <h2>
-                    Please share this page with caution. Anyone who opens this page has super administrator rights.
-                </h2>
-            </div>
-            <!-- header end -->
-            <!-- register -->
-            <div class="container">
-                <h3 class="title">
-                    Create a Room
-                </h3>
-                <div class="register-form">
-                    <div class="nes-field">
-                        <label for="name_field">
-                            Room Name
-                        </label>
-                        <input class="nes-input" id="name_field" type="text" x-model="roomName" />
-                    </div>
-                    <div x-show="!usernameExist" class="nes-field">
-                        <label for="name_field">
-                            Your nickname
-                        </label>
-                        <input class="nes-input" id="nickName" type="text" x-model="nickName" />
-                    </div>
-                    <button class="nes-btn is-primary mt-2" type="button" x-bind:class="{'is-disabled':roomId}"
-                        x-on:click="createRoom()">
-                        Create
-                    </button>
-                    <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
-                        Change User
-                    </button>
-                </div>
-            </div>
-            <!-- register end -->
-
-            <!-- share -->
-            <div class="container" id="control" x-show="isShowShareArea">
-                <h3 class="title">
-                    Share
-                </h3>
-                <div class="avatar">
-                    <textarea id="textarea_field" x-model="shareText" style="min-height: 7em;"
-                        class="nes-textarea"></textarea>
-
-                    <div class="columns is-desktop">
-                        <div class="column is-two-fifths">
-                            <button class="nes-btn is-primary" type="button" x-on:click="copyLink">
-                                Copy & Share
-                            </button>
-                        </div>
-                    </div>
-                    <button class="nes-btn is-success" type="button" x-on:click="loginAsAdmin">
-                        Log in to the room as Administrator
-                    </button>
-                </div>
-            </div>
-            <!-- share end -->
-            <div style="margin-top: 10px;">
-                <p>Designed & developed by <a href="https://github.com/bestony">Bestony</a>, co-developed by <a
-                        href="https://github.com/johnpoint">johnpoint</a>
-                </p>
-                <p>Sponsored by: <a href="https://leancloud.app/">LeanCloud</a>, <a
-                        href="https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB">Agora</a>
-                    & <a href="https://www.ipip.net/">IPIP.net</a></p>
-                <p>Media partner: <a href="http://dao.fm/">津津乐道播客</a></p>
-            </div>
+  <div class="columns is-centered">
+    <div class="column is-half" style="width: 60%;">
+      <!-- header -->
+      <div class="header">
+        <h1 class="title">
+          NESHouse.com
+        </h1>
+        <h2>
+          Please share this page with caution. Anyone who opens this page has super administrator rights.
+        </h2>
+      </div>
+      <!-- header end -->
+      <!-- register -->
+      <div class="container">
+        <h3 class="title">
+          Create a Room
+        </h3>
+        <div class="register-form">
+          <div class="nes-field">
+            <label for="name_field">
+              Room Name
+            </label>
+            <input class="nes-input" id="name_field" type="text" x-model="roomName" />
+          </div>
+          <div x-show="!usernameExist" class="nes-field">
+            <label for="name_field">
+              Your nickname
+            </label>
+            <input class="nes-input" id="nickName" type="text" x-model="nickName" />
+          </div>
+          <div style="display: flex; text-align: center;">
+            <button class="nes-btn is-primary mt-2" type="button" x-bind:class="{'is-disabled':roomId}"
+              x-on:click="createRoom()">
+              Create
+            </button>
+            <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
+              Change User
+            </button>
+          </div>
         </div>
+      </div>
+      <!-- register end -->
+
+      <!-- share -->
+      <div class="container" id="control" x-show="isShowShareArea">
+        <h3 class="title">
+          Share
+        </h3>
+        <div class="avatar">
+          <textarea id="textarea_field" x-model="shareText" style="min-height: 7em;" class="nes-textarea"></textarea>
+
+          <div class="columns is-desktop" style="padding-top: 25px">
+            <div class="column is-two-fifths">
+              <div style="display: flex; text-align: center;">
+                <button class="nes-btn is-primary" type="button" x-on:click="copyLink">
+                  Copy & Share
+                </button>
+                <button class="nes-btn is-success" type="button" x-on:click="loginAsAdmin">
+                  Log in to the room as Administrator
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- share end -->
+      <div style="margin-top: 10px;">
+        <p>Designed & developed by <a href="https://github.com/bestony">Bestony</a>, co-developed by <a
+            href="https://github.com/johnpoint">johnpoint</a>
+        </p>
+        <p>Sponsored by: <a href="https://leancloud.app/">LeanCloud</a>, <a
+            href="https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB">Agora</a>
+          & <a href="https://www.ipip.net/">IPIP.net</a></p>
+        <p>Media partner: <a href="http://dao.fm/">津津乐道播客</a></p>
+      </div>
     </div>
+  </div>
 
 </body>
