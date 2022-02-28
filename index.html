@@ -81,7 +81,7 @@
                 </h3>
                 <div class="columns is-desktop is-multiline" style="display: flex;">
                     <template x-for="item in hosts" :key="item">
-            <div class="column is-one-quarter is-desktop user-box" style="width: 20%;">
+            <div class="column is-one-quarter is-desktop user-box" style="width: 20%;" @click="userControl(item)">
               <div class="user">
                 <div class="nes-avatar  is-rounded is-large"
                   style="background-color: #ffc75f;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px; margin: 0 auto;"
@@ -102,8 +102,8 @@
                 <div class="avatar">
                     <div class="columns is-desktop is-multiline" style="display: flex;">
                         <template x-for="item in guests" :key="item">
-              <div class="column is-one-quarter is-desktop user-box" style="width: 20%;">
-                <div class="user" @click="userControl(item)">
+              <div class="column is-one-quarter is-desktop user-box" style="width: 20%;" @click="userControl(item)">
+                <div class="user">
                   <div class="nes-avatar  is-rounded is-large"
                     style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px; margin: 0 auto;"
                     x-text="$truncate(item.nickname,2,'')"></div>
