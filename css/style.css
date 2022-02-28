@@ -1,45 +1,59 @@
-html, body, pre, code, kbd, samp {
-  font-family: "Press Start 2P";
-  /* "Press Start 2P"; */
-  /*font-size: 30px;*/
+html,
+body,
+pre,
+code,
+kbd,
+samp {
+    font-family: "Press Start 2P";
+    /* "Press Start 2P"; */
+    /*font-size: 30px;*/
+}
+
+.user-box {
+    border: dashed;
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.user-box:hover {
+    border-color: rgba(0, 0, 0, 0.212) !important;
 }
 
 .container {
-  margin-top: 30px;
-  padding: 1.5rem 2rem;
-  margin-bottom: 70px;
-  border-color: #000;
-  border-style: solid;
-  border-width: 4px;
+    margin-top: 30px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 70px;
+    border-color: #000;
+    border-style: solid;
+    border-width: 4px;
 }
 
 .container>.title {
-  display: table;
-  padding: 0 .5rem;
-  margin: -2.2rem -1rem 1rem;
-  font-size: 1rem;
-  background-color: #fff;
+    display: table;
+    padding: 0 .5rem;
+    margin: -2.2rem -1rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
 }
 
 .username {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .username:hover {
-  color: rgb(87, 98, 255);
+    color: rgb(87, 98, 255);
 }
 
 .header {
-  margin: 20px 0px;
-  padding: 40px 0;
-  line-height: 2.0;
+    margin: 20px 0px;
+    padding: 40px 0;
+    line-height: 2.0;
 }
 
 .nes-btn {
-  display: flex;
-  margin: 0 auto;
+    display: flex;
+    margin: 0 auto;
 }
 
 .column.is-two-fifths {
-  flex: auto;
+    flex: auto;
 }
