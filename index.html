@@ -2,86 +2,86 @@
 <html>
 
 <head>
-  <title>
-    NESHouse.com
-  </title>
-  <meta charset="UTF-8">
+    <title>
+        NESHouse.com
+    </title>
+    <meta charset="UTF-8">
 
-  <link href="https://fonts.loli.net/css?family=Press+Start+2P" rel="stylesheet">
-  <link href="css/bulma.min.css" rel="stylesheet" type="text/css" />
-  <link href="css/nes.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.loli.net/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="css/bulma.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/nes.min.css" rel="stylesheet" type="text/css" />
 
-  <link href="css/style.css" rel="stylesheet" type="text/css" />
-  <script src="js/truncate.min.js"></script>
-  <script src="js/alpine.min.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="js/truncate.min.js"></script>
+    <script src="js/alpine.min.js"></script>
 
-  <script src="js/config.js?v=20210207001"></script>
-  <script src="js/av-live-query-min.js"></script>
-  <script src="js/AgoraRTC_N-4.3.0.js"></script>
-  <script src="js/app.js?v=20210207001"></script>
+    <script src="js/config.js?v=20210207001"></script>
+    <script src="js/av-live-query-min.js"></script>
+    <script src="js/AgoraRTC_N-4.3.0.js"></script>
+    <script src="js/app.js?v=20210207001"></script>
 </head>
 
 </html>
 
 <body x-cloak x-data="index()" x-init="init()">
-  <div class="columns is-centered">
-    <div class="column is-half" style="width: 60%;">
+    <div class="columns is-centered">
+        <div class="column is-half" style="width: 60%;">
 
-      <!-- header -->
-      <div class="header">
-        <h1 class="title">
-          NESHouse.com
-        </h1>
-        <h2 x-html="subtitle">
-        </h2>
-      </div>
-      <!-- header end -->
+            <!-- header -->
+            <div class="header">
+                <h1 class="title">
+                    NESHouse.com
+                </h1>
+                <h2 x-html="subtitle">
+                </h2>
+            </div>
+            <!-- header end -->
 
-      <!-- loginProgress -->
-      <progress class="nes-progress is-pattern" x-show="showProgress" x-bind:value="progress" max="100"></progress>
-      <!-- loginProgress end -->
+            <!-- loginProgress -->
+            <progress class="nes-progress is-pattern" x-show="showProgress" x-bind:value="progress" max="100"></progress>
+            <!-- loginProgress end -->
 
-      <!-- register -->
-      <div class="container" x-show="isShowRegsiter">
-        <h3 class="title">
-          Join an NESHouse Room
-        </h3>
-        <div class="register-form">
-          <div x-show="!usernameExist" class="nes-field">
-            <label for="name_field">
+            <!-- register -->
+            <div class="container" x-show="isShowRegsiter">
+                <h3 class="title">
+                    Join an NESHouse Room
+                </h3>
+                <div class="register-form">
+                    <div x-show="!usernameExist" class="nes-field">
+                        <label for="name_field">
               Please enter your nickname
             </label>
-            <input class="nes-input" id="name_field" x-model="nickname" type="text">
-            </input>
-          </div>
-          <div style="display: flex; align-items: center;">
-            <button class="nes-btn is-primary mt-2" type="button" @click="loginWithInviteAndUsername()">
+                        <input class="nes-input" id="name_field" x-model="nickname" type="text">
+                        </input>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="nes-btn is-primary mt-2" type="button" @click="loginWithInviteAndUsername()">
               Join
             </button>
-            <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
+                        <button x-show="usernameExist" class="nes-btn mt-2" type="button" @click="createNewUser()">
               Use Another Nickname
             </button>
-          </div>
-        </div>
-      </div>
-      <!-- register end -->
+                    </div>
+                </div>
+            </div>
+            <!-- register end -->
 
-      <!-- chatroom -->
-      <div class="nes-container with-title is-centered" x-show="!isShowChatRoom && isShowButton">
-        <p class="title">User Agreement</p>
-        <p>Please allow the app to use your playback device.</p>
-        <button type="button" class="nes-btn is-success" @click="showForm">OK</button>
-      </div>
-      <h2 class="title" x-show="isShowChatRoom">
-        <span x-text="roomTitle"></span>
-      </h2>
-      <div class="container" id="host" x-show="isShowChatRoom">
-        <h3 class="title">
-          Speakers
-        </h3>
-        <div class="columns is-desktop is-multiline" style="display: flex;">
-          <template x-for="item in hosts" :key="item">
-            <div class="column is-one-quarter is-desktop" style="width: 20%;">
+            <!-- chatroom -->
+            <div class="nes-container with-title is-centered" x-show="!isShowChatRoom && isShowButton">
+                <p class="title">User Agreement</p>
+                <p>Please allow the app to use your playback device.</p>
+                <button type="button" class="nes-btn is-success" @click="showForm">OK</button>
+            </div>
+            <h2 class="title" x-show="isShowChatRoom">
+                <span x-text="roomTitle"></span>
+            </h2>
+            <div class="container" id="host" x-show="isShowChatRoom">
+                <h3 class="title">
+                    Speakers
+                </h3>
+                <div class="columns is-desktop is-multiline" style="display: flex;">
+                    <template x-for="item in hosts" :key="item">
+            <div class="column is-one-quarter is-desktop user-box" style="width: 20%;" @click="userControl(item)">
               <div class="user">
                 <div class="nes-avatar  is-rounded is-large"
                   style="background-color: #ffc75f;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px; margin: 0 auto;"
@@ -93,135 +93,125 @@
               </div>
             </div>
           </template>
-        </div>
-      </div>
-      <div class="container" id="user" x-show="isShowChatRoom">
-        <h3 class="title">
-          Audience
-        </h3>
-        <div class="avatar">
-          <div class="columns is-desktop is-multiline" style="display: flex;">
-            <template x-for="item in guests" :key="item">
-              <div class="column is-one-quarter is-desktop" style="width: 20%;">
+                </div>
+            </div>
+            <div class="container" id="user" x-show="isShowChatRoom">
+                <h3 class="title">
+                    Audience
+                </h3>
+                <div class="avatar">
+                    <div class="columns is-desktop is-multiline" style="display: flex;">
+                        <template x-for="item in guests" :key="item">
+              <div class="column is-one-quarter is-desktop user-box" style="width: 20%;" @click="userControl(item)">
                 <div class="user">
                   <div class="nes-avatar  is-rounded is-large"
                     style="background-color: #5eaaa8;text-align: center;overflow: hidden;line-height: 64px;font-size: 20px; width: 74px; height: 74px; margin: 0 auto;"
                     x-text="$truncate(item.nickname,2,'')"></div>
                   <div style="text-align: center; word-break: break-all; width: 80px; margin: 0 auto;">
-                    <span class="username" x-text="$truncate(item.nickname,15)" @click="userControl(item)">
+                    <span class="username" x-text="$truncate(item.nickname,15)">
                     </span>
                   </div>
                 </div>
               </div>
             </template>
-          </div>
-        </div>
-      </div>
-      <div class="container" id="control" x-show="isShowChatRoom">
-        <h3 class="title">
-          Control
-        </h3>
-        <div class="avatar">
-          <div class="columns is-desktop" style="display: block; align-items: center;">
-            <div style="display: flex;">
-              <div class="column" x-show="isAdmin">
-                <button class="nes-btn is-error" @click="deInit(true)" type="button">
+                    </div>
+                </div>
+            </div>
+            <div class="container" id="control" x-show="isShowChatRoom">
+                <h3 class="title">
+                    Control
+                </h3>
+                <div class="avatar">
+                    <div class="columns is-desktop" style="display: block; align-items: center;">
+                        <div style="display: flex;">
+                            <div class="column" x-show="isAdmin">
+                                <button class="nes-btn is-error" @click="deInit(true)" type="button">
                   Destroy Room
                 </button>
-              </div>
-              <div class="column">
-                <button class="nes-btn is-error" @click="deInit(false)" type="button">
+                            </div>
+                            <div class="column">
+                                <button class="nes-btn is-error" @click="deInit(false)" type="button">
                   Leave Room
                 </button>
-              </div>
-              <div class="column" x-show="isAdmin || isHost">
-                <button class="nes-btn" x-text="rtcEnable?'Mute':'Unmute'" type="button" @click="muteMySelf">
+                            </div>
+                            <div class="column" x-show="isAdmin || isHost">
+                                <button class="nes-btn" x-text="rtcEnable?'Mute':'Unmute'" type="button" @click="muteMySelf">
                   Mute Myself
                 </button>
-              </div>
-              <div class="column" x-show="!isAdmin && !isHost && !hasApplication">
-                <button class="nes-btn" type="button" @click="makeApplication">
+                            </div>
+                            <div class="column" x-show="!isAdmin && !isHost && !hasApplication">
+                                <button class="nes-btn" type="button" @click="makeApplication">
                   Request to Speak
                 </button>
-              </div>
-            </div>
-          </div>
+                            </div>
+                        </div>
+                    </div>
 
-          <div class="container" id="userControl" x-show="selectUser.id && isAdmin">
-            <h3 class="title">
-              User
-            </h3>
-            <div class="avatar">
-              <div class="column">
-                <p><label>Nickname: </label><span x-text="selectUser.nickname||NaN"></span></p>
-                <p><label>Role: </label><span x-text="selectUser.role||NaN"></span></p>
-                <div style="display: flex; text-align: center;">
-                  <button type="button" @click="muteHost(selectUser)" class="nes-btn is-warning"
-                    style="margin: 10px 15px;" x-text="selectUser.forceMute?'Unmute':'Mute'"></button>
-                  <button type="button" @click="adminSwitch(selectUser);selectUser={}" class="nes-btn is-warning"
-                    style="margin: 10px 15px;" x-show="selectUser.role!='guest'"
-                    x-text="selectUser.role=='admin'?'↓ Host':'↑ Admin'"></button>
-                  <button type="button" class="nes-btn is-warning" style="margin: 10px 15px;"
-                    x-show="selectUser.role!='admin'" @click="makePeopleBeHost(selectUser);selectUser={}"
-                    x-text="selectUser.role=='host'?'↓ Audience':'↑ Host'"></button>
-                  <button type="button" class="nes-btn is-error" style="margin: 10px 15px;"
-                    @click="kickUser(selectUser);selectUser={}">Kick</button>
+                    <div class="container" id="userControl" x-show="selectUser.id && isAdmin">
+                        <h3 class="title">
+                            User
+                        </h3>
+                        <div class="avatar">
+                            <div class="column">
+                                <p><label>Nickname: </label><span x-text="selectUser.nickname||NaN"></span></p>
+                                <p><label>Role: </label><span x-text="selectUser.role||NaN"></span></p>
+                                <div style="display: flex; text-align: center;">
+                                    <button type="button" @click="muteHost(selectUser)" class="nes-btn is-warning" style="margin: 10px 15px;" x-text="selectUser.forceMute?'Unmute':'Mute'"></button>
+                                    <button type="button" @click="adminSwitch(selectUser);selectUser={}" class="nes-btn is-warning" style="margin: 10px 15px;" x-show="selectUser.role!='guest'" x-text="selectUser.role=='admin'?'↓ Host':'↑ Admin'"></button>
+                                    <button type="button" class="nes-btn is-warning" style="margin: 10px 15px;" x-show="selectUser.role!='admin'" @click="makePeopleBeHost(selectUser);selectUser={}" x-text="selectUser.role=='host'?'↓ Audience':'↑ Host'"></button>
+                                    <button type="button" class="nes-btn is-error" style="margin: 10px 15px;" @click="kickUser(selectUser);selectUser={}">Kick</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
             </div>
-          </div>
+            <!-- charroom end -->
 
-        </div>
-      </div>
-      <!-- charroom end -->
+            <!-- share -->
+            <div class="container" id="share" x-show="isShowChatRoom && isShowShare">
+                <h3 class="title">
+                    Share
+                </h3>
+                <div class="avatar">
+                    <textarea id="textarea_field" x-show="shareText" x-model="shareText" style="min-height: 7em;" class="nes-textarea"></textarea>
+                    <div class="columns is-desktop">
 
-      <!-- share -->
-      <div class="container" id="share" x-show="isShowChatRoom && isShowShare">
-        <h3 class="title">
-          Share
-        </h3>
-        <div class="avatar">
-          <textarea id="textarea_field" x-show="shareText" x-model="shareText" style="min-height: 7em;"
-            class="nes-textarea"></textarea>
-          <div class="columns is-desktop">
-
-            <div class="column is-two-fifths" style="margin: 0 auto;">
-              <button class="nes-btn is-primary" type="button" @click="copyLink">
+                        <div class="column is-two-fifths" style="margin: 0 auto;">
+                            <button class="nes-btn is-primary" type="button" @click="copyLink">
                 Copy Link & Share
               </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- share end -->
+            <!-- share end -->
 
-      <!-- controlpanel -->
-      <div class="container" id="application-list" x-show="isShowChatRoom && isAdmin">
-        <h3 class="title">
-          Speakers' Waiting Bench
-        </h3>
-        <div class="lists">
-          <ul class="nes-list is-circle">
-            <template x-for="item in applications" :key="item">
+            <!-- controlpanel -->
+            <div class="container" id="application-list" x-show="isShowChatRoom && isAdmin">
+                <h3 class="title">
+                    Speakers' Waiting Bench
+                </h3>
+                <div class="lists">
+                    <ul class="nes-list is-circle">
+                        <template x-for="item in applications" :key="item">
               <li><span x-text="item.nickname"></span> <button type="button" @click="makePeopleBeHost(item)"
                   class="nes-btn is-success" style="margin-right: 20px;">Allow</button>
               </li>
             </template>
-          </ul>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- controlpanel end -->
+
+            <div style="margin-top: 10px;">
+                <p>Designed & developed by <a href="https://github.com/bestony">Bestony</a>, co-developed by <a href="https://github.com/johnpoint">johnpoint</a>
+                    <p>Sponsored by: <a href="https://leancloud.app/">LeanCloud</a>, <a href="https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB">Agora</a> & <a href="https://www.ipip.net/">IPIP.net</a></p>
+                    <p>Media partner: <a href="http://dao.fm/">津津乐道播客</a></p>
+            </div>
         </div>
-
-      </div>
-      <!-- controlpanel end -->
-
-      <div style="margin-top: 10px;">
-        <p>Designed & developed by <a href="https://github.com/bestony">Bestony</a>, co-developed by <a
-            href="https://github.com/johnpoint">johnpoint</a>
-        <p>Sponsored by: <a href="https://leancloud.app/">LeanCloud</a>, <a
-            href="https://www.agora.io/cn/?utm_source=opensource&utm_medium=refferal&utm_campaign=clubhouseB">Agora</a>
-          & <a href="https://www.ipip.net/">IPIP.net</a></p>
-        <p>Media partner: <a href="http://dao.fm/">津津乐道播客</a></p>
-      </div>
     </div>
-  </div>
 
 </body>
