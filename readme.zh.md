@@ -63,6 +63,8 @@ NesHouse 是一个基于 Agora、LeanCloud 服务，使用 Alpine.js 、Bulma Cs
 ```js
 const AVAPPID = "" // LeanCloud AppID
 const AVAPPKEY = "" // LeanCloud AppKey
+const AVAPPURL = "" // LeanCloud api 自定义域名
+
 const BASEURL = "" // 最终网页所在的路径，生成的分享链接会基于这个地址产生
 const DEFAULT_TEXT = "Please contact <a href='mailto:bestony@linux.com'>bestony@linux.com</a> to Learn more" // 页面顶部展示的文字
 const AGORAAPPID = "" // 声网服务的 AppID

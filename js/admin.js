@@ -1,6 +1,7 @@
 AV.init({
     appId: AVAPPID,
     appKey: AVAPPKEY,
+    serverURLs: AVAPPURL,
 });
 
 function admin() {
