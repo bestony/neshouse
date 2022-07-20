@@ -4,6 +4,7 @@
 AV.init({
     appId: AVAPPID,
     appKey: AVAPPKEY,
+    serverURLs: AVAPPURL,
 });
 const Room = AV.Object.extend('Room');
 const RoomUser = AV.Object.extend("RoomUser");
