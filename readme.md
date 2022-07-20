@@ -61,6 +61,8 @@ If you are interested in the commercial version of NESHouse, further information
 ```js
 const AVAPPID = "" // LeanCloud AppID
 const AVAPPKEY = "" // LeanCloud AppKey
+const AVAPPURL = "" // LeanCloud Custom api domain
+
 const BASEURL = "" // The path where the final page is located, the generated share link will be generated based on this address
 const DEFAULT_TEXT = "Please contact <a href='mailto:bestony@linux.com'>bestony@linux.com</a> to Learn more" // Text displayed at the top of the page
 const AGORAAPPID = "" // AppID for Agora
